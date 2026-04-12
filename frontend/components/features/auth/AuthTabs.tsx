@@ -1,0 +1,26 @@
+"use client"
+
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { LoginForm } from "./LoginForm"
+import { RegisterForm } from "./RegisterForm"
+
+export function AuthTabs() {
+  return (
+    <Tabs defaultValue="login" className="">
+      
+      <TabsList className="grid grid-cols-2 w-full">
+        <TabsTrigger value="login">Logga in</TabsTrigger>
+        <TabsTrigger value="register">Skapa konto</TabsTrigger>
+      </TabsList>
+
+      <TabsContent value="login" className="mt-6">
+        <LoginForm />
+      </TabsContent>
+
+      <TabsContent value="register" className="mt-6">
+        <RegisterForm />
+      </TabsContent>
+
+    </Tabs>
+  )
+}
