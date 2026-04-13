@@ -58,6 +58,10 @@
   --color-brand-yellow-foreground: var(--brand-yellow-foreground);
   --color-brand-orange: var(--brand-orange);
   --color-brand-orange-foreground: var(--brand-orange-foreground);
+
+  /* Alert colors */
+  --color-brand-blue-alert: var(--brand-blue-alert);
+  --color-brand-green-alert: var(--brand-green-alert);
 }
 
 :root {
@@ -105,6 +109,10 @@
   --brand-yellow-foreground: oklch(0.25 0.02 100);
   --brand-orange: oklch(0.88 0.12 60);
   --brand-orange-foreground: oklch(0.25 0.02 60);
+
+  /* Alert colors */
+  --brand-blue-alert: oklch(0.65 0.12 240);
+  --brand-green-alert: oklch(0.7 0.14 140);
 }
 
 .dark {
@@ -151,15 +159,21 @@
   --brand-yellow-foreground: oklch(0.1 0 0);
   --brand-orange: oklch(0.55 0.14 60);
   --brand-orange-foreground: oklch(0.98 0 0);
+
+  /* Alert colors */
+  --brand-blue-alert: oklch(0.75 0.1 240);
+  --brand-green-alert: oklch(0.8 0.12 140);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
