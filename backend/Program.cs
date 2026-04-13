@@ -42,6 +42,8 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
+
 // 🎯 Controllers
 builder.Services.AddControllers();
 
