@@ -1,6 +1,7 @@
 "use client"
 
-import { Navbar } from "@/components/layout/navbar/Navbar";
+import { NewsLetter } from "@/components/features/news-letter/NewsLetter";
+
 
 
 
@@ -8,7 +9,7 @@ export default function Home() {
   return (
     <div className="">
       
-<Navbar/>
+<NewsLetter/>
           </div>
   );
 }
