@@ -1,6 +1,6 @@
 "use client"
 
-import { NewsLetter } from "@/components/features/news-letter/NewsLetter";
+import { AuthTabs } from "@/components/features/auth/AuthTabs";
 
 
 
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="">
       
-<NewsLetter/>
+<AuthTabs/>
           </div>
   );
 }
