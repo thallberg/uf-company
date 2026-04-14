@@ -1,16 +1,14 @@
-"use client"
+"use client";
 
-
-import { Footer } from "@/components/layout/footer/Footer";
-
+import { ProductGrid } from "@/components/features/product/ProductGrid";
 
 
 
 export default function Home() {
   return (
     <div className="">
-      
-<Footer/>
-          </div>
+<ProductGrid/>
+
+    </div>
   );
 }

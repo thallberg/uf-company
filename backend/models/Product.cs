@@ -6,6 +6,7 @@ public class Product
     public string Description { get; set; } = string.Empty;
 
     public decimal Price { get; set; }
+    public decimal? SalePrice { get; set; }
 
     public string Type { get; set; } = string.Empty; 
     // "Matkasse", "Bakpaket"

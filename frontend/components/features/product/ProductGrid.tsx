@@ -27,6 +27,7 @@ export function ProductGrid() {
           name={product.name}
           description={product.description}
           price={product.price}
+          salePrice={product.salePrice ?? undefined}
           imageUrl={product.imageUrl}
           badge={product.stock === 0 ? "Slut" : undefined}
           badgeVariant="destructive"
