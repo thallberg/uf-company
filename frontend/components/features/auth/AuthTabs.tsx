@@ -8,9 +8,9 @@ export function AuthTabs() {
   return (
     <Tabs defaultValue="login" className="">
       
-      <TabsList className="grid grid-cols-2 w-full">
-        <TabsTrigger value="login">Logga in</TabsTrigger>
-        <TabsTrigger value="register">Skapa konto</TabsTrigger>
+      <TabsList variant='line' className="grid grid-cols-2 w-full">
+        <TabsTrigger variant='custom' value="login">Logga in</TabsTrigger>
+        <TabsTrigger variant='custom' value="register">Skapa konto</TabsTrigger>
       </TabsList>
 
       <TabsContent value="login" className="mt-6">
