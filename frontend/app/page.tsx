@@ -1,10 +1,11 @@
+"use client"
 
-import { ProductGrid } from "@/components/features/product/ProductGrid";
+import { Navbar } from "@/components/layout/navbar/Navbar";
 
 export default function Home() {
   return (
-    <div className="p-6">
-      <ProductGrid />
+    <div className="">
+      <Navbar />
     </div>
   );
 }

@@ -9,5 +9,7 @@ export async function getProducts(): Promise<Product[]> {
     throw new Error("Failed to fetch products");
   }
 
-  return res.json() as Promise<Product[]>;
+  const json = await res.json()
+
+  return json.data;
 }
