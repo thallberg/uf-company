@@ -1,6 +1,7 @@
 "use client"
 
-import { AuthTabs } from "@/components/features/auth/AuthTabs";
+
+import { Footer } from "@/components/layout/footer/Footer";
 
 
 
@@ -9,7 +10,7 @@ export default function Home() {
   return (
     <div className="">
       
-<AuthTabs/>
+<Footer/>
           </div>
   );
 }

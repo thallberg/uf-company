@@ -15,14 +15,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { newsLetterContent } from "@/content/news-letter/NewsLetter.content"
 
 const formSchema = z.object({
   email: z
     .string()
     .trim()
-    .email("Ange en giltig e-postadress.")
-    .min(1, "Skriv in din e-postadress."),
+    .email(newsLetterContent.validation.emailInvalid)
+    .min(1, newsLetterContent.validation.emailRequired),
 })
+
+const content = newsLetterContent
 
 export function NewsLetter() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
@@ -35,7 +38,7 @@ export function NewsLetter() {
     },
     onSubmit: async ({ value }) => {
       setStatus("success")
-      setMessage("Tack! Du är nu anmäld till nyhetsbrevet.")
+      setMessage(content.successMessage)
       form.setFieldValue("email", "")
     },
   })
@@ -50,14 +53,14 @@ export function NewsLetter() {
   }
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
+   
       <Card className="overflow-hidden bg-background shadow-sm">
         <CardHeader className="space-y-2 px-6 pb-2 pt-6 sm:px-8">
           <CardTitle className="text-2xl font-semibold tracking-tight">
-            Nyhetsbrev
+            {content.title}
           </CardTitle>
           <CardDescription className="max-w-2xl text-sm text-muted-foreground">
-            Få de senaste uppdateringarna, erbjudandena och nyheterna direkt till din inkorg.
+            {content.description}
           </CardDescription>
         </CardHeader>
 
@@ -67,7 +70,7 @@ export function NewsLetter() {
               {(field) => (
                 <div className="space-y-2">
                   <label className="sr-only" htmlFor="newsletter-email">
-                    E-postadress
+                    {content.label}
                   </label>
                   <Input
                     id="newsletter-email"
@@ -75,7 +78,7 @@ export function NewsLetter() {
                     value={field.state.value ?? ""}
                     onChange={(event) => field.handleChange(event.target.value)}
                     onBlur={field.handleBlur}
-                    placeholder="Din e-postadress"
+                    placeholder={content.placeholder}
                     className="w-full"
                     aria-invalid={field.state.meta.errors.length > 0}
                   />
@@ -92,7 +95,7 @@ export function NewsLetter() {
             </form.Field>
 
             <Button type="submit" variant="blue" size="lg">
-              Prenumerera
+              {content.submit}
             </Button>
           </form>
 
@@ -114,10 +117,10 @@ export function NewsLetter() {
 
         <CardFooter className="px-6 pt-4 pb-6 sm:px-8">
           <p className="text-xs text-muted-foreground">
-            Vi delar aldrig din e-postadress och du kan avregistrera dig när som helst.
+            {content.footer}
           </p>
         </CardFooter>
       </Card>
-    </section>
+  
   )
 }

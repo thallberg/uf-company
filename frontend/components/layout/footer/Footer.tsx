@@ -1,30 +1,37 @@
+﻿import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { footerContent } from "@/content/footer/Footer.content";
+import { footerLinks } from "./Footer.links";
+
 export function Footer() {
   return (
-    <footer className="border-t mt-16">
-      <div className="container mx-auto px-4 py-10 grid gap-6 md:grid-cols-3">
-        
-        <div>
-          <h3 className="font-semibold mb-2">UF Store</h3>
-          <p className="text-sm text-muted-foreground">
-            Din shop för kvalitetsprodukter.
-          </p>
+    <footer className="border-t">
+      <div className="container mx-auto px-4 py-10 grid gap-6 md:grid-cols-3 md:justify-items-center text-center">
+        <div className="mx-auto w-full max-w-xs md:mx-0">
+          <h3 className="font-semibold mb-2">{footerContent.title}</h3>
+          <p className="text-sm text-muted-foreground">{footerContent.description}</p>
         </div>
 
-        <div>
-          <h3 className="font-semibold mb-2">Länkar</h3>
-          <ul className="space-y-1 text-sm">
-            <li>Shop</li>
-            <li>Om oss</li>
-          </ul>
+        <div className="mx-auto w-full max-w-xs md:mx-0">
+          <h3 className="font-semibold mb-2">{footerContent.linksTitle}</h3>
+          <div className="text-sm">
+            {footerLinks.map((link) => (
+              <Button key={link.href.toString()} asChild variant="link" className="w-full p-0">
+                <Link href={link.href}>{link.label}</Link>
+              </Button>
+            ))}
+          </div>
         </div>
 
-        <div>
-          <h3 className="font-semibold mb-2">Kontakt</h3>
-          <p className="text-sm text-muted-foreground">
-            info@ufstore.se
-          </p>
+        <div className="mx-auto w-full max-w-xs md:mx-0">
+          <h3 className="font-semibold mb-2">{footerContent.contactTitle}</h3>
+          <p className="text-sm text-muted-foreground">{footerContent.contactEmail}</p>
         </div>
+      </div>
 
+      <div className="border-t px-4 py-4 text-sm text-muted-foreground">
+        {footerContent.footerNote}
       </div>
     </footer>
   );

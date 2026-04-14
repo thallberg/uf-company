@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { loginAction } from "@/api/Auth.api"
-import { authContent } from "@/content/auth/AuthContent"
+import { authContent } from "@/content/auth/Auth.content"
 
 const loginSchema = z.object({
   email: z
