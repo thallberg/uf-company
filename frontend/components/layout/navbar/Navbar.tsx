@@ -10,18 +10,24 @@ export function Navbar() {
     <nav className="border-b bg-background h-full">
       <div className="container mx-auto flex h-18 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="font-bold text-lg">
-          UF Store
-        </Link>
+        <Button asChild variant="link">
+          <Link href="/" className="font-bold text-lg">
+            UF Store
+          </Link>
+        </Button>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="link">
-           <User className="!w-6 !h-6" />
+          <Button asChild variant="link">
+            <Link href="/account">
+              <User className="!w-6 !h-6" />
+            </Link>
           </Button>
 
-          <Button variant="link">
-           <ShoppingCart className="!w-6 !h-6" />
+          <Button asChild variant="link">
+            <Link href="/cart">
+              <ShoppingCart className="!w-6 !h-6" />
+            </Link>
           </Button>
         </div>
 

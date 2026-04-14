@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, ShoppingCart, User } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,17 +12,32 @@ import {
   SheetTitle,
   SheetClose,
 } from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
+import { mobileBottomLinks, mobileNavLinks } from "./MobileMenu.links";
+import { useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+import { isLoggedIn } from "@/lib/Auth";
+
+
 
 export function MobileMenu() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setLoggedIn(isLoggedIn());
+  }, []);
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Menu />
+        <Button variant="ghost">
+          <Menu className="!w-6 !h-6" />
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="left" className="w-72 p-6 flex flex-col">
+      <SheetContent side="left" className="w-72 p-4 flex flex-col">
+
         {/* HEADER */}
         <SheetHeader>
           <SheetTitle className="text-left text-lg font-bold">
@@ -32,35 +47,46 @@ export function MobileMenu() {
 
         {/* NAV LINKS */}
         <div className="mt-6 flex flex-col gap-4 text-lg">
-          <SheetClose asChild>
-            <Link href="/">Hem</Link>
-          </SheetClose>
-
-          <SheetClose asChild>
-            <Link href="/shop">Shop</Link>
-          </SheetClose>
-
-          <SheetClose asChild>
-            <Link href="/about">Om oss</Link>
-          </SheetClose>
+          {mobileNavLinks.map((link, i) => (
+            <div key={link.href}>
+              <SheetClose asChild>
+                <Link href={link.href} className="flex items-center gap-2 p-4">
+                  <link.icon className="w-5 h-5" />
+                  {link.label}
+                </Link>
+              </SheetClose>
+              <Separator />
+            </div>
+          ))}
         </div>
 
-        {/* PUSH DOWN */}
+        {/* BOTTOM */}
         <div className="mt-auto space-y-4">
-          <SheetClose asChild>
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <ShoppingCart size={18} />
-              Varukorg
-            </Button>
-          </SheetClose>
+          {mobileBottomLinks.map((link) => {
+            const href =
+              link.label === "Konto"
+                ? loggedIn
+                  ? "/account"
+                  : "/auth"
+                : link.href;
 
-          <SheetClose asChild>
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <User size={18} />
-              Konto
-            </Button>
-          </SheetClose>
+            return (
+              <SheetClose asChild key={link.href}>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                >
+                  <Link href={href}>
+                    <link.icon size={18} />
+                    {link.label}
+                  </Link>
+                </Button>
+              </SheetClose>
+            );
+          })}
         </div>
+
       </SheetContent>
     </Sheet>
   );
