@@ -1,5 +1,5 @@
 ﻿export const newsLetterContent = {
-  title: "Nyhetsbrev",
+  title: "Anmäl dig till vårt nyhetsbrev",
   description: "Få de senaste uppdateringarna, erbjudandena och nyheterna direkt till din inkorg.",
   label: "E-postadress",
   placeholder: "Din e-postadress",

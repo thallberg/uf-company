@@ -21,13 +21,13 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
 
         blue:
-          "bg-brand-blue text-brand-blue-foreground hover:bg-brand-blue/80 focus-visible:ring-brand-blue/40",
+          "bg-brand-blue text-muted hover:bg-brand-blue/80 focus-visible:ring-brand-blue/40",
         green:
-          "bg-brand-green text-brand-green-foreground hover:bg-brand-green/80 focus-visible:ring-brand-green/40",
+          "bg-brand-green text-muted hover:bg-brand-green/80 focus-visible:ring-brand-green/40",
         yellow:
-          "bg-brand-yellow text-brand-yellow-foreground hover:bg-brand-yellow/80 focus-visible:ring-brand-yellow/40",
+          "bg-brand-yellow text-muted hover:bg-brand-yellow/80 focus-visible:ring-brand-yellow/40",
         orange:
-          "bg-brand-orange text-brand-orange-foreground hover:bg-brand-orange/80 focus-visible:ring-brand-orange/40",
+          "bg-brand-orange text-muted hover:bg-brand-orange/80 focus-visible:ring-brand-orange/40",
       },
       size: {
         default:

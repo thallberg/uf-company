@@ -36,7 +36,6 @@ const formatFieldError = (error: unknown) => {
     const message = (error as { message?: unknown }).message
     if (typeof message === "string") return message
   }
-
   return String(error)
 }
 
@@ -59,10 +58,6 @@ export function LoginForm() {
       setStatus("success")
       setMessage("Inloggning lyckades.")
     },
-    onSubmitInvalid: () => {
-      setStatus("error")
-      setMessage("Fyll i alla fält korrekt.")
-    },
   })
 
   const handleSubmit = async (
@@ -76,7 +71,7 @@ export function LoginForm() {
       await form.handleSubmit()
     } catch {
       setStatus("error")
-      setMessage("Inloggning misslyckades. Kontrollera dina uppgifter.")
+      setMessage("Fel e-post eller lösenord.")
     }
   }
 
@@ -85,28 +80,34 @@ export function LoginForm() {
       <CardHeader>
         <CardTitle>{content.title}</CardTitle>
       </CardHeader>
+
       <CardContent>
         <form id="login-form" onSubmit={handleSubmit} className="space-y-4">
+
+          {/* EMAIL */}
           <form.Field name="email">
             {(field) => {
-              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid
 
               return (
                 <div className="space-y-2">
                   <label className="sr-only" htmlFor={field.name}>
                     {content.fields.email}
                   </label>
+
                   <Input
                     id={field.name}
                     name={field.name}
                     type="email"
                     autoComplete="email"
                     value={field.state.value ?? ""}
-                    onChange={(event) => field.handleChange(event.target.value)}
+                    onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     placeholder={content.fields.email}
                     aria-invalid={isInvalid}
                   />
+
                   {isInvalid && (
                     <p className="inline-flex items-center gap-2 text-sm text-destructive">
                       <XIcon className="h-4 w-4" />
@@ -118,26 +119,30 @@ export function LoginForm() {
             }}
           </form.Field>
 
+          {/* PASSWORD */}
           <form.Field name="password">
             {(field) => {
-              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid
 
               return (
                 <div className="space-y-2">
                   <label className="sr-only" htmlFor={field.name}>
                     {content.fields.password}
                   </label>
+
                   <Input
                     id={field.name}
                     name={field.name}
                     type="password"
                     autoComplete="current-password"
                     value={field.state.value ?? ""}
-                    onChange={(event) => field.handleChange(event.target.value)}
+                    onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     placeholder={content.fields.password}
                     aria-invalid={isInvalid}
                   />
+
                   {isInvalid && (
                     <p className="inline-flex items-center gap-2 text-sm text-destructive">
                       <XIcon className="h-4 w-4" />
@@ -148,20 +153,32 @@ export function LoginForm() {
               )
             }}
           </form.Field>
+
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+
+      <CardFooter className="flex flex-col gap-3 border-none bg-card">
+
+        {/* ✅ ENDAST success eller server error */}
         {status !== "idle" && (
-          <p className={`inline-flex items-center gap-2 text-sm ${status === "success" ? "text-brand-green" : "text-destructive"}`}>
-            {status === "success" ? <CircleCheckIcon className="h-4 w-4" /> : <XIcon className="h-4 w-4" />}
+          <p
+            className={`inline-flex items-center gap-2 text-sm ${
+              status === "success" ? "text-brand-green" : "text-destructive"
+            }`}
+          >
+            {status === "success" ? (
+              <CircleCheckIcon className="h-4 w-4" />
+            ) : (
+              <XIcon className="h-4 w-4" />
+            )}
             {message}
           </p>
         )}
-        <Button type="submit" form="login-form" className="w-full sm:w-auto">
+
+        <Button type="submit" form="login-form" className="w-full">
           {content.submit}
         </Button>
       </CardFooter>
     </Card>
   )
 }
-
