@@ -1,13 +1,13 @@
 "use client";
 
-import { AuthTabs } from "@/components/features/auth/AuthTabs";
+import { ProductGrid } from "@/components/features/product/ProductGrid";
 
 
 export default function Home() {
   return (
     <div className="">
 
-<AuthTabs/>
+<ProductGrid/>
     </div>
   );
 }

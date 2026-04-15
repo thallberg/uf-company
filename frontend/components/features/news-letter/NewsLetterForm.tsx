@@ -15,7 +15,11 @@ const formSchema = z.object({
     .trim()
     .email("Ogiltig e-post")
     .min(1, "E-post krävs"),
-  consent: z.boolean(),
+
+  // 🔥 ALL validation här
+  consent: z.boolean().refine((v) => v === true, {
+    message: "Du måste godkänna för att fortsätta",
+  }),
 })
 
 type Props = {
@@ -28,7 +32,6 @@ type Props = {
 export function NewsLetterForm({ content }: Props) {
   const [status, setStatus] = useState<"idle" | "success">("idle")
   const [message, setMessage] = useState("")
-  const [consentError, setConsentError] = useState<string | null>(null)
 
   const form = useForm({
     defaultValues: { email: "", consent: false },
@@ -42,23 +45,16 @@ export function NewsLetterForm({ content }: Props) {
     },
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    setStatus("idle")
-    setMessage("")
-    setConsentError(null)
-
-    if (!form.state.values.consent) {
-      setConsentError("Du måste godkänna för att fortsätta")
-      return
-    }
-
-    await form.handleSubmit()
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="w-full md:max-w-md space-y-4">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        setStatus("idle")
+        setMessage("")
+        form.handleSubmit()
+      }}
+      className="w-full md:max-w-md space-y-4"
+    >
 
       {/* EMAIL */}
       <form.Field name="email">
@@ -87,25 +83,23 @@ export function NewsLetterForm({ content }: Props) {
                 </Button>
               </div>
 
-              {/* ERROR / SUCCESS */}
-              {consentError ? (
-                <p className="text-sm text-destructive flex items-center gap-2">
-                  <XIcon className="size-4" />
-                  {consentError}
-                </p>
-              ) : error ? (
+              {/* 🔥 EMAIL ERROR */}
+              {error && (
                 <p className="text-sm text-destructive flex items-center gap-2">
                   <XIcon className="size-4" />
                   {typeof error === "string"
                     ? error
                     : (error as any)?.message ?? "Ogiltigt värde"}
                 </p>
-              ) : status === "success" ? (
+              )}
+
+              {/* ✅ SUCCESS */}
+              {!error && status === "success" && (
                 <p className="text-sm text-brand-green flex items-center gap-2">
                   <CircleCheckIcon className="size-4" />
                   {message}
                 </p>
-              ) : null}
+              )}
             </div>
           )
         }}
@@ -113,22 +107,37 @@ export function NewsLetterForm({ content }: Props) {
 
       {/* CHECKBOX */}
       <form.Field name="consent">
-        {(field) => (
-          <label className="flex items-start gap-3 cursor-pointer">
-            <Checkbox
-              checked={field.state.value}
-              onCheckedChange={(checked) => {
-                field.handleChange(!!checked)
-                if (checked) setConsentError(null)
-              }}
-              className="mt-1"
-            />
+        {(field) => {
+          const error = field.state.meta.errors[0]
 
-            <span className="text-sm text-muted-foreground leading-relaxed">
-              Ja tack, jag vill få nyheter och marknadsföring från UF Company via e-post om produkter, erbjudanden, evenemang och tävlingar.
-            </span>
-          </label>
-        )}
+          return (
+            <div className="space-y-2">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <Checkbox
+                  checked={field.state.value}
+                  onCheckedChange={(checked) =>
+                    field.handleChange(!!checked)
+                  }
+                  className="mt-1"
+                />
+
+                <span className="text-sm text-muted-foreground leading-relaxed">
+                  Ja tack, jag vill få nyheter och marknadsföring från UF Company via e-post om produkter, erbjudanden, evenemang och tävlingar.
+                </span>
+              </label>
+
+              {/* 🔥 CONSENT ERROR */}
+              {error && (
+                <p className="text-sm text-destructive flex items-center gap-2">
+                  <XIcon className="size-4" />
+                  {typeof error === "string"
+                    ? error
+                    : (error as any)?.message ?? "Ogiltigt värde"}
+                </p>
+              )}
+            </div>
+          )
+        }}
       </form.Field>
 
     </form>

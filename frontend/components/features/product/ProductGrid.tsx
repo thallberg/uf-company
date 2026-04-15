@@ -1,30 +1,8 @@
 import { getProducts } from "@/api/Product.api";
 import { ProductCard } from "./ProductCard";
-import { useEffect, useState } from "react";
-import { Product } from "./Products.types";
-import { Spinner } from "@/components/ui/spinner";
 
-export function ProductGrid() {
- const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    getProducts()
-      .then(setProducts)
-      .catch((err) => {
-        console.error(err);
-        setError("Kunde inte hämta produkter");
-      });
-  }, []); // 🔥 VIKTIGT
-
-  if (error) return <p>{error}</p>;
- if (!products.length) {
-  return (
-    <div className="flex justify-center items-center py-20">
-      <Spinner className="size-12 text-brand-blue" />
-    </div>
-  );
-}
+export async function ProductGrid() {
+  const products = await getProducts();
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -38,7 +16,9 @@ export function ProductGrid() {
           imageUrl={product.imageUrl}
           badge={product.stock === 0 ? "Slut" : undefined}
           badgeVariant="destructive"
-          onAddToCart={() => console.log("Add", product.id)}
+          onAddToCart={(qty) =>
+            console.log("Add", product.id, qty)
+          }
         />
       ))}
     </div>
