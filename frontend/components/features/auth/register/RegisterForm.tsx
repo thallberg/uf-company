@@ -6,7 +6,7 @@ export function RegisterForm() {
   const content = authContent.register
 
   return (
-    <Card className="w-full">
+    <Card className="p-6 w-full h-full ring-0 rounded-none">
       <CardHeader>
         <CardTitle>{content.title}</CardTitle>
       </CardHeader>

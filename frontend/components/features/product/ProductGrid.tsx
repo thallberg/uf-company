@@ -9,6 +9,7 @@ export async function ProductGrid() {
       {products.map((product) => (
         <ProductCard
           key={product.id}
+          productId={product.id}
           name={product.name}
           description={product.description}
           price={product.price}
@@ -16,9 +17,6 @@ export async function ProductGrid() {
           imageUrl={product.imageUrl}
           badge={product.stock === 0 ? "Slut" : undefined}
           badgeVariant="destructive"
-          onAddToCart={(qty) =>
-            console.log("Add", product.id, qty)
-          }
         />
       ))}
     </div>

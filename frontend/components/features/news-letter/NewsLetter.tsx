@@ -14,15 +14,15 @@ export function NewsLetter() {
   const content = newsLetterContent
 
   return (
-    <Card className="overflow-hidden bg-brand-blue/30 rounded-none">
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-12 md:grid md:grid-cols-2 md:items-center md:gap-8">
+    <Card className="overflow-hidden bg-brand-green/70 rounded-none">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-12 md:grid md:grid-cols-2 md:gap-8">
 
         {/* LEFT (SERVER) */}
-        <CardHeader className="space-y-2 py-6">
-          <CardTitle className="text-2xl font-semibold tracking-tight">
+        <CardHeader className="py-6 gap-0">
+          <CardTitle className="text-2xl font-semibold tracking-tight text-green-100">
             {content.title}
           </CardTitle>
-          <CardDescription className="max-w-md text-sm text-muted-foreground">
+          <CardDescription className="max-w-md text-sm text-green-100">
             {content.description}
           </CardDescription>
         </CardHeader>

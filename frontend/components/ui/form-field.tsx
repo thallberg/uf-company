@@ -25,7 +25,7 @@ export function FormField({ field, placeholder, type = "text" }: Props) {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 mt-1">
       <Input
         id={field.name}
         name={field.name}
@@ -35,6 +35,7 @@ export function FormField({ field, placeholder, type = "text" }: Props) {
         onBlur={field.handleBlur}
         placeholder={placeholder}
         aria-invalid={isInvalid}
+        className="h-12"
       />
 
       {isInvalid && error && (

@@ -20,5 +20,16 @@ export const authContent = {
       postalCode: "Postnummer",
       phoneNumber: "Telefonnummer"
     }
+  },
+
+    benefits: {
+    title: "Varför skapa konto?",
+    items: [
+      "Följ dina beställningar i realtid",
+      "Snabb och enkel checkout",
+      "Se din köphistorik",
+      "Spara leveransuppgifter",
+      "Exklusiva erbjudanden"
+    ]
   }
 }

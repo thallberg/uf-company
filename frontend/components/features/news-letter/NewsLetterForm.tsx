@@ -77,7 +77,7 @@ export function NewsLetterForm({ content }: Props) {
                   type="submit"
                   size="icon"
                   variant="outline"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 border-none text-brand-blue hover:text-brand-blue"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 border-none text-brand-green hover:text-brand-green"
                 >
                   <ArrowRightCircle className="size-8" />
                 </Button>
@@ -95,7 +95,7 @@ export function NewsLetterForm({ content }: Props) {
 
               {/* ✅ SUCCESS */}
               {!error && status === "success" && (
-                <p className="text-sm text-brand-green flex items-center gap-2">
+                <p className="text-sm text-green-900 flex items-center gap-2">
                   <CircleCheckIcon className="size-4" />
                   {message}
                 </p>

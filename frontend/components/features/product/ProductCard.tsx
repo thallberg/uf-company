@@ -12,6 +12,7 @@ import { ProductCardActions } from "./ProductCardActions";
 
 
 type Props = {
+  productId: number; 
   name: string;
   description: string;
   price: number;
@@ -19,7 +20,6 @@ type Props = {
   badge?: string;
   badgeVariant?: "blue" | "destructive";
   salePrice?: number;
-   onAddToCart?: (quantity: number) => Promise<void> | void;
 };
 
 export function ProductCard(props: Props) {
@@ -31,7 +31,7 @@ export function ProductCard(props: Props) {
     badge,
     badgeVariant,
     salePrice,
-    onAddToCart
+    productId
   } = props;
 
   const isOnSale = salePrice != null && salePrice < price;
@@ -92,7 +92,7 @@ export function ProductCard(props: Props) {
 
           <ProductCardActions
             badge={badge}
-            onAddToCart={onAddToCart}
+            productId={productId}
           />
         </div>
       </CardContent>

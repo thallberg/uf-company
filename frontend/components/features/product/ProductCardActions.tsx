@@ -7,23 +7,23 @@ import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
   badge?: string;
-  onAddToCart?: (quantity: number) => Promise<void> | void;
+  productId: number;
 };
 
 export function ProductCardActions({
   badge,
-  onAddToCart,
+  productId,
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
   const handleAdd = async () => {
-    if (!onAddToCart) return;
-
     setLoading(true);
 
     try {
-      await onAddToCart(quantity);
+      // Simulate API call
+      console.log("Adding to cart", { productId, quantity });
+    
     } finally {
       setLoading(false);
     }

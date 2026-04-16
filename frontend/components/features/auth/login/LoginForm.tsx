@@ -7,7 +7,7 @@ export function LoginForm() {
   const content = authContent.login
 
   return (
-    <Card className="w-full">
+    <Card className="p-6 w-full h-full ring-0 rounded-none">
       <CardHeader>
         <CardTitle>{content.title}</CardTitle>
       </CardHeader>

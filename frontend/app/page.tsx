@@ -1,13 +1,11 @@
-"use client";
 
-import { ProductGrid } from "@/components/features/product/ProductGrid";
+import { Footer } from "@/components/layout/footer/Footer";
 
 
 export default function Home() {
   return (
     <div className="">
-
-<ProductGrid/>
+      <Footer />
     </div>
   );
 }
