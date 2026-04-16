@@ -17,6 +17,7 @@ export async function ProductGrid() {
           imageUrl={product.imageUrl}
           badge={product.stock === 0 ? "Slut" : undefined}
           badgeVariant="destructive"
+          bundleItems={product.bundleItems} // 🔥 viktigt
         />
       ))}
     </div>

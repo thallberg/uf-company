@@ -22,21 +22,28 @@ public class ProductService : IProductService
         await _repo.AddAsync(product);
     }
 
-    public async Task UpdateAsync(int id, Product updated)
-    {
-        var existing = await _repo.GetByIdAsync(id);
-        if (existing == null)
-            throw new Exception("Product not found");
+public async Task UpdateAsync(int id, Product updated)
+{
+    var existing = await _repo.GetByIdAsync(id);
+    if (existing == null)
+        throw new Exception("Product not found");
 
-        existing.Name = updated.Name;
-        existing.Description = updated.Description;
-        existing.Price = updated.Price;
-        existing.Stock = updated.Stock;
-        existing.Type = updated.Type;
-        existing.IsLocalOnly = updated.IsLocalOnly;
+    existing.Name = updated.Name;
+    existing.Description = updated.Description;
 
-        await _repo.UpdateAsync(existing);
-    }
+    // 🔥 DETTA SAKNAS HOS DIG
+    existing.LongDescription = updated.LongDescription;
+    existing.Origin = updated.Origin;
+    existing.MealsCount = updated.MealsCount;
+    existing.SalePrice = updated.SalePrice;
+
+    existing.Price = updated.Price;
+    existing.Stock = updated.Stock;
+    existing.Type = updated.Type;
+    existing.IsLocalOnly = updated.IsLocalOnly;
+
+    await _repo.UpdateAsync(existing);
+}
 
     public async Task DeleteAsync(int id)
     {
@@ -70,4 +77,16 @@ public class ProductService : IProductService
             Data = products
         };
     }
+
+public async Task AddProductToBundleAsync(ProductBundleDto dto)
+{
+    var bundle = new ProductBundle
+    {
+        BundleId = dto.BundleId,
+        ProductId = dto.ProductId,
+        Quantity = dto.Quantity
+    };
+
+    await _repo.AddProductToBundleAsync(bundle);
+}
 }

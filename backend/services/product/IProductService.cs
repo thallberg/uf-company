@@ -13,4 +13,5 @@ public interface IProductService
     string? type,
     bool? isLocal,
     string? search);
+    Task AddProductToBundleAsync(ProductBundleDto dto);
 }

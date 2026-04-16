@@ -56,4 +56,12 @@ public class ProductController : ControllerBase
         await _service.DeleteAsync(id);
         return Ok();
     }
+
+    [Authorize(Roles = "Admin")]
+[HttpPost("bundle")]
+public async Task<IActionResult> AddToBundle(ProductBundleDto dto)
+{
+    await _service.AddProductToBundleAsync(dto);
+    return Ok();
+}
 }

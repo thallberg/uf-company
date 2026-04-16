@@ -13,4 +13,5 @@ public interface IProductRepository
     string? type,
     bool? isLocal,
     string? search);
+    Task AddProductToBundleAsync(ProductBundle bundle);
 }

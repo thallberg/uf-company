@@ -14,10 +14,13 @@ public class ProductRepository : IProductRepository
         return await _context.Set<Product>().ToListAsync();
     }
 
-    public async Task<Product?> GetByIdAsync(int id)
-    {
-        return await _context.Set<Product>().FindAsync(id);
-    }
+  public async Task<Product?> GetByIdAsync(int id)
+{
+    return await _context.Products
+        .Include(p => p.BundleItems)
+        .ThenInclude(pb => pb.Product)
+        .FirstOrDefaultAsync(p => p.Id == id);
+}
 
     public async Task AddAsync(Product product)
     {
@@ -53,33 +56,49 @@ public class ProductRepository : IProductRepository
         return await query.ToListAsync();
     }
 
-    public async Task<(List<Product>, int totalCount)> GetPagedAsync(
-        int page,
-        int pageSize,
-        string? type,
-        bool? isLocal,
-        string? search)
-    {
-        var query = _context.Set<Product>().AsQueryable();
+public async Task<(List<Product>, int totalCount)> GetPagedAsync(
+    int page,
+    int pageSize,
+    string? type,
+    bool? isLocal,
+    string? search)
+{
+    var query = _context.Products
+        .Include(p => p.BundleItems)
+        .ThenInclude(pb => pb.Product)
+        .AsQueryable();
 
-        if (!string.IsNullOrEmpty(type))
-            query = query.Where(p => p.Type == type);
+        if (type == "Bundle")
+{
+    query = query
+        .Include(p => p.BundleItems)
+        .ThenInclude(pb => pb.Product);
+}
 
-        if (isLocal.HasValue)
-            query = query.Where(p => p.IsLocalOnly == isLocal.Value);
+    if (!string.IsNullOrEmpty(type))
+        query = query.Where(p => p.Type == type);
 
-        if (!string.IsNullOrEmpty(search))
-            query = query.Where(p =>
-                p.Name.ToLower().Contains(search.ToLower()) ||
-                p.Description.ToLower().Contains(search.ToLower()));
+    if (isLocal.HasValue)
+        query = query.Where(p => p.IsLocalOnly == isLocal.Value);
 
-        var totalCount = await query.CountAsync();
+    if (!string.IsNullOrEmpty(search))
+        query = query.Where(p =>
+            p.Name.ToLower().Contains(search.ToLower()) ||
+            p.Description.ToLower().Contains(search.ToLower()));
 
-        var data = await query
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
+    var totalCount = await query.CountAsync();
 
-        return (data, totalCount);
-    }
+    var data = await query
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
+
+    return (data, totalCount);
+}
+
+    public async Task AddProductToBundleAsync(ProductBundle bundle)
+{
+    _context.ProductBundles.Add(bundle);
+    await _context.SaveChangesAsync();
+}
 }

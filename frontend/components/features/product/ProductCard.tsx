@@ -8,11 +8,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ProductCardActions } from "./ProductCardActions";
-
-
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 type Props = {
-  productId: number; 
+  productId: number;
   name: string;
   description: string;
   price: number;
@@ -20,6 +20,14 @@ type Props = {
   badge?: string;
   badgeVariant?: "blue" | "destructive";
   salePrice?: number;
+
+  bundleItems?: {
+    productId: number;
+    quantity: number;
+    product: {
+      name: string;
+    };
+  }[];
 };
 
 export function ProductCard(props: Props) {
@@ -31,7 +39,8 @@ export function ProductCard(props: Props) {
     badge,
     badgeVariant,
     salePrice,
-    productId
+    productId,
+    bundleItems
   } = props;
 
   const isOnSale = salePrice != null && salePrice < price;
@@ -72,8 +81,22 @@ export function ProductCard(props: Props) {
       </CardHeader>
 
       <CardContent className="flex flex-col flex-1 justify-between">
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <div>
+          <p className="text-sm text-muted-foreground">{description}</p>
 
+          {bundleItems && bundleItems.length > 0 && (
+            <div className="mt-2 text-xs text-muted-foreground">
+              <p className="font-medium text-foreground">Innehåller:</p>
+              <ul className="mt-1 space-y-1">
+                {bundleItems.map((item) => (
+                  <li key={item.productId}>
+                    • {item.product.name} x{item.quantity}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
         <div className="flex flex-col gap-3 mt-4">
           <div className="flex flex-col">
             {salePrice ? (
@@ -95,6 +118,11 @@ export function ProductCard(props: Props) {
             productId={productId}
           />
         </div>
+        <Link href={`/product/${productId}`}>
+          <Button variant="link" className="">
+            Läs mer
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );

@@ -10,4 +10,22 @@ public class AppDbContext : DbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<ProductBundle> ProductBundles => Set<ProductBundle>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<ProductBundle>()
+            .HasOne(pb => pb.Bundle)
+            .WithMany(p => p.BundleItems)
+            .HasForeignKey(pb => pb.BundleId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ProductBundle>()
+            .HasOne(pb => pb.Product)
+            .WithMany()
+            .HasForeignKey(pb => pb.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
 }
