@@ -31,7 +31,7 @@ export function MobileMenu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="link" className="text-green-100">
+        <Button variant="link" className="brand-white">
           <Menu className="!w-6 !h-6" />
         </Button>
       </SheetTrigger>
@@ -75,7 +75,7 @@ export function MobileMenu() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full justify-start gap-2 hover:bg-brand-green hover:text-green-100"
+                  className="w-full justify-start gap-2 hover:bg-brand-green hover:brand-white"
                 >
                   <Link href={href}>
                     <link.icon size={18} />

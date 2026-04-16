@@ -77,7 +77,7 @@ export function NewsLetterForm({ content }: Props) {
                   type="submit"
                   size="icon"
                   variant="outline"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 border-none text-brand-green hover:text-brand-green"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 border-none text-brand-white hover:text-brand-white"
                 >
                   <ArrowRightCircle className="size-8" />
                 </Button>

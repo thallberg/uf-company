@@ -19,10 +19,10 @@ export function NewsLetter() {
 
         {/* LEFT (SERVER) */}
         <CardHeader className="py-6 gap-0">
-          <CardTitle className="text-2xl font-semibold tracking-tight text-green-100">
+          <CardTitle className="text-2xl font-semibold tracking-tight text-brand-white">
             {content.title}
           </CardTitle>
-          <CardDescription className="max-w-md text-sm text-green-100">
+          <CardDescription className="max-w-md text-sm text-brand-white">
             {content.description}
           </CardDescription>
         </CardHeader>
