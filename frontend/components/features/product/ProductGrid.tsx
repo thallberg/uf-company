@@ -5,7 +5,7 @@ export async function ProductGrid() {
   const products = await getProducts();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="flex flex-row flex-wrap gap-6 justify-center h-full w-full">
       {products.map((product) => (
         <ProductCard
           key={product.id}

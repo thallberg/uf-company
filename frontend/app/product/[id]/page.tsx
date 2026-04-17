@@ -5,11 +5,11 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ProductCardActions } from "@/components/features/product/ProductCardActions";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
 export default async function ProductPage({ params }: Props) {
-  const { id } = await params;
+  const { id } = params;
   const product = await getProductById(Number(id));
 
   if (!product) {
@@ -25,6 +25,8 @@ export default async function ProductPage({ params }: Props) {
           ((product.price - product.salePrice) / product.price) * 100
         )
       : null;
+
+  const bundleItems = product.bundleItems ?? [];
 
   return (
     <div className="container mx-auto py-10 px-4">
@@ -63,7 +65,7 @@ export default async function ProductPage({ params }: Props) {
             <div>
               <h1 className="text-3xl font-bold">{product.name}</h1>
 
-              {product.mealsCount > 0 && (
+              {product.mealsCount != null && product.mealsCount > 0 && (
                 <p className="text-sm text-muted-foreground mt-1">
                   {product.mealsCount} måltider
                 </p>
@@ -128,14 +130,14 @@ export default async function ProductPage({ params }: Props) {
       </div>
 
       {/* 🔥 BUNDLE CONTENT */}
-      {product.bundleItems?.length > 0 && (
+      {bundleItems.length > 0 && (
         <div className="mt-12 flex flex-col justify-center items-center">
           <h2 className="text-xl font-semibold mb-4">
             Detta ingår i kassen
           </h2>
 
           <div className="flex flex-wrap gap-3">
-            {product.bundleItems.map((item) => (
+            {bundleItems.map((item) => (
               <div
                 key={item.productId}
                 className="flex items-center gap-2 px-3 py-2 bg-background hover:bg-muted transition"

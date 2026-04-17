@@ -4,17 +4,21 @@ type Product = {
   id: number;
   name: string;
   description: string;
+  longDescription?: string;
   price: number;
   salePrice?: number | null;
   imageUrl?: string;
-  type: string;
+  type: "Product" | "Bundle";
   stock: number;
+  origin?: string; // ✅ denna saknas
+  mealsCount?: number;
 
   bundleItems?: {
     productId: number;
     quantity: number;
     product: {
       name: string;
+      imageUrl?: string;
     };
   }[];
 };

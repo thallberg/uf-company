@@ -44,8 +44,8 @@ export function ProductCard(props: Props) {
     salePrice != null ? Math.round(((price - salePrice) / price) * 100) : null;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 max-w-md">
-      <div className="relative aspect-square bg-muted max-h-44 overflow-hidden">
+    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 w-full max-w-md min-h-144">
+      <div className="relative aspect-square bg-muted max-h-68 overflow-hidden">
         {imageUrl && (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
         )}
