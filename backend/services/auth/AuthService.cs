@@ -18,7 +18,7 @@ public class AuthService : IAuthService
     {
         var existing = await _userRepo.GetByEmailAsync(dto.Email);
         if (existing != null)
-            throw new Exception("User already exists");
+            throw new ApplicationException("USER_EXISTS");
 
         var user = new User
         {

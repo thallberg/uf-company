@@ -11,12 +11,24 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterDto dto)
+[HttpPost("register")]
+public async Task<IActionResult> Register(RegisterDto dto)
+{
+    try
     {
-        var token = await _authService.RegisterAsync(dto);
-        return Ok(new { token });
+        var result = await _authService.RegisterAsync(dto);
+        return Ok(result);
     }
+    catch (ApplicationException ex)
+    {
+        if (ex.Message == "USER_EXISTS")
+        {
+            return BadRequest(new { message = "User already exists" });
+        }
+
+        return BadRequest(new { message = "Invalid request" });
+    }
+}
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto dto)

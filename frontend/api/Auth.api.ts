@@ -1,4 +1,4 @@
-import { LoginRequest, RegisterRequest } from "@/components/features/auth/Auth.types"
+import { LoginRequest } from "@/components/features/auth/Auth.types"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -36,14 +36,16 @@ export async function registerAction(data: any) {
   try {
     responseData = JSON.parse(text);
   } catch {
-    console.error("RAW BACKEND ERROR:", text);
     throw new Error(text || "Serverfel");
   }
 
-  if (!res.ok) {
-    console.error("BACKEND ERROR:", responseData);
-    throw new Error(responseData.message || "Register failed");
+ if (!res.ok) {
+  if (res.status === 400) {
+    throw new Error("E-postadressen används redan");
   }
+
+  throw new Error("Något gick fel, försök igen");
+}
 
   return responseData;
 }
