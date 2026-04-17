@@ -7,8 +7,8 @@ export const mobileNavLinks = [
     icon: Home,
   },
   {
-    label: "Shop",
-    href: "/shop",
+    label: "Cart",
+    href: "/cart",
     icon: ShoppingBag,
   },
   {

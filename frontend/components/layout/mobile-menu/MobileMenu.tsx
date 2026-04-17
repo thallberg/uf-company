@@ -13,31 +13,20 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+
 import { mobileBottomLinks, mobileNavLinks } from "./MobileMenu.links";
-import { useEffect, useState } from "react";
-
-import { useRouter } from "next/navigation";
-import { isLoggedIn } from "@/lib/Auth";
-
-
 
 export function MobileMenu() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    setLoggedIn(isLoggedIn());
-  }, []);
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="link" className="brand-white">
+        <Button variant="link">
           <Menu className="!w-6 !h-6" />
         </Button>
       </SheetTrigger>
 
       <SheetContent side="left" className="w-72 p-4 flex flex-col">
-
+        
         {/* HEADER */}
         <SheetHeader>
           <SheetTitle className="text-left text-lg font-bold">
@@ -45,9 +34,9 @@ export function MobileMenu() {
           </SheetTitle>
         </SheetHeader>
 
-        {/* NAV LINKS */}
+        {/* NAV */}
         <div className="mt-6 flex flex-col gap-4 text-lg">
-          {mobileNavLinks.map((link, i) => (
+          {mobileNavLinks.map((link) => (
             <div key={link.href}>
               <SheetClose asChild>
                 <Link href={link.href} className="flex items-center gap-2 p-4">
@@ -62,29 +51,20 @@ export function MobileMenu() {
 
         {/* BOTTOM */}
         <div className="mt-auto space-y-4">
-          {mobileBottomLinks.map((link) => {
-            const href =
-              link.label === "Konto"
-                ? loggedIn
-                  ? "/account"
-                  : "/auth"
-                : link.href;
-
-            return (
-              <SheetClose asChild key={link.href}>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full justify-start gap-2 hover:bg-brand-green hover:brand-white"
-                >
-                  <Link href={href}>
-                    <link.icon size={18} />
-                    {link.label}
-                  </Link>
-                </Button>
-              </SheetClose>
-            );
-          })}
+          {mobileBottomLinks.map((link) => (
+            <SheetClose asChild key={link.href}>
+              <Button
+                asChild
+                variant="outline"
+                className="w-full justify-start gap-2 hover:bg-brand-green hover:text-brand-white"
+              >
+                <Link href={link.href}>
+                  <link.icon size={18} />
+                  {link.label}
+                </Link>
+              </Button>
+            </SheetClose>
+          ))}
         </div>
 
       </SheetContent>

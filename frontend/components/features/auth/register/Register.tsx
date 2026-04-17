@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { JSX, useState } from "react"
-import { useForm } from "@tanstack/react-form"
-import * as z from "zod"
-import { CircleCheckIcon, XIcon } from "lucide-react"
+import { JSX, useState } from "react";
+import { useForm } from "@tanstack/react-form";
+import * as z from "zod";
+import { CircleCheckIcon, XIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { FormField } from "@/components/ui/form-field"
-import { CardContent, CardFooter } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
+import { FormField } from "@/components/ui/form-field";
+import { CardContent, CardFooter } from "@/components/ui/card";
 
-import { registerAction } from "@/api/Auth.api"
+import { registerAction } from "@/api/Auth.api";
 
 const registerSchema = z.object({
   email: z.string().trim().email(),
@@ -19,7 +19,7 @@ const registerSchema = z.object({
   city: z.string().min(1),
   postalCode: z.string().min(1),
   phoneNumber: z.string().min(1),
-})
+});
 
 const fieldNames = [
   "fullName",
@@ -27,11 +27,11 @@ const fieldNames = [
   "city",
   "postalCode",
   "phoneNumber",
-] as const
+] as const;
 
 export function RegisterFormClient({ content }: any) {
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
-  const [message, setMessage] = useState("")
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
 
   const form = useForm({
     defaultValues: {
@@ -46,16 +46,28 @@ export function RegisterFormClient({ content }: any) {
     validators: {
       onSubmit: registerSchema,
     },
-    onSubmit: async ({ value }) => {
-      const res = await registerAction(value)
-      localStorage.setItem("token", res.token)
+onSubmit: async ({ value }) => {
+  try {
+    console.log("SENDING:", value)
 
-      setStatus("success")
-      setMessage("Kontot skapades.")
+    const res = await registerAction(value)
 
-      form.reset()
-    },
-  })
+    console.log("RESPONSE:", res)
+
+    localStorage.setItem("token", res.token)
+    window.dispatchEvent(new Event("auth-change"))
+
+    setStatus("success")
+    setMessage("Kontot skapades.")
+    form.reset()
+  } catch (err: any) {
+    console.error("ERROR:", err)
+
+    setStatus("error")
+    setMessage(err?.message || "Serverfel")
+  }
+}
+  });
 
   return (
     <>
@@ -63,23 +75,30 @@ export function RegisterFormClient({ content }: any) {
         <form
           id="register-form"
           onSubmit={(e) => {
-            e.preventDefault()
-            setStatus("idle")
-            setMessage("")
-            form.handleSubmit()
+            e.preventDefault();
+            setStatus("idle");
+            setMessage("");
+            form.handleSubmit();
           }}
           className="space-y-4"
         >
-
           <form.Field name="email">
             {(field) => (
-              <FormField field={field} type="email" placeholder={content.fields.email} />
+              <FormField
+                field={field}
+                type="email"
+                placeholder={content.fields.email}
+              />
             )}
           </form.Field>
 
           <form.Field name="password">
             {(field) => (
-              <FormField field={field} type="password" placeholder={content.fields.password} />
+              <FormField
+                field={field}
+                type="password"
+                placeholder={content.fields.password}
+              />
             )}
           </form.Field>
 
@@ -90,17 +109,21 @@ export function RegisterFormClient({ content }: any) {
               )}
             </form.Field>
           ))}
-
         </form>
       </CardContent>
 
       <CardFooter className="flex flex-col gap-3 border-none bg-card">
         {status !== "idle" && (
-          <p className={`text-sm flex items-center gap-2 ${status === "success" ? "text-brand-green" : "text-destructive"
-            }`}>
-            {status === "success"
-              ? <CircleCheckIcon className="h-4 w-4" />
-              : <XIcon className="h-4 w-4" />}
+          <p
+            className={`text-sm flex items-center gap-2 ${
+              status === "success" ? "text-brand-green" : "text-destructive"
+            }`}
+          >
+            {status === "success" ? (
+              <CircleCheckIcon className="h-4 w-4" />
+            ) : (
+              <XIcon className="h-4 w-4" />
+            )}
             {message}
           </p>
         )}
@@ -110,5 +133,5 @@ export function RegisterFormClient({ content }: any) {
         </Button>
       </CardFooter>
     </>
-  )
+  );
 }

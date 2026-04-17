@@ -20,16 +20,30 @@ export async function loginAction(data: LoginRequest): Promise<AuthResponse> {
   return res.json()
 }
 
-export async function registerAction(data: RegisterRequest): Promise<AuthResponse> {
-  const res = await fetch(`${API_URL}/api/auth/register`, {
+export async function registerAction(data: any) {
+  const res = await fetch("http://localhost:5011/api/auth/register", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
 
-  if (!res.ok) {
-    throw new Error("Register failed")
+  const text = await res.text(); // ✅ läs EN gång
+
+  let responseData;
+
+  try {
+    responseData = JSON.parse(text);
+  } catch {
+    console.error("RAW BACKEND ERROR:", text);
+    throw new Error(text || "Serverfel");
   }
 
-  return res.json()
+  if (!res.ok) {
+    console.error("BACKEND ERROR:", responseData);
+    throw new Error(responseData.message || "Register failed");
+  }
+
+  return responseData;
 }

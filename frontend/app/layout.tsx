@@ -3,6 +3,7 @@ import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner"
+import { Navbar } from "@/components/layout/navbar/Navbar";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
   <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className="min-h-full flex flex-col">
+          <Navbar />
         {children}
         <Toaster />
       </body>

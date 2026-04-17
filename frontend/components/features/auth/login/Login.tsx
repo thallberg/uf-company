@@ -1,13 +1,13 @@
 "use client";
 
-import { JSX, useState } from "react";
+import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { CircleCheckIcon, XIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
-import { CardContent, CardFooter } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 
 import { loginAction } from "@/api/Auth.api";
 

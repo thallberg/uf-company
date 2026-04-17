@@ -1,10 +1,5 @@
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ProductCardActions } from "./ProductCardActions";
@@ -40,18 +35,16 @@ export function ProductCard(props: Props) {
     badgeVariant,
     salePrice,
     productId,
-    bundleItems
+    bundleItems,
   } = props;
 
   const isOnSale = salePrice != null && salePrice < price;
 
   const discount =
-    salePrice != null
-      ? Math.round(((price - salePrice) / price) * 100)
-      : null;
+    salePrice != null ? Math.round(((price - salePrice) / price) * 100) : null;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4">
+    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 max-w-md">
       <div className="relative aspect-square bg-muted max-h-44 overflow-hidden">
         {imageUrl && (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
@@ -73,56 +66,68 @@ export function ProductCard(props: Props) {
           <CardTitle className="text-base">{name}</CardTitle>
 
           {!isOnSale && badge && (
-            <Badge variant={badgeVariant ?? "destructive"}>
-              {badge}
-            </Badge>
+            <Badge variant={badgeVariant ?? "destructive"}>{badge}</Badge>
           )}
         </div>
       </CardHeader>
 
-      <CardContent className="flex flex-col flex-1 justify-between">
-        <div>
-          <p className="text-sm text-muted-foreground">{description}</p>
-
-          {bundleItems && bundleItems.length > 0 && (
-            <div className="mt-2 text-xs text-muted-foreground">
-              <p className="font-medium text-foreground">Innehåller:</p>
-              <ul className="mt-1 space-y-1">
-                {bundleItems.map((item) => (
-                  <li key={item.productId}>
-                    • {item.product.name} x{item.quantity}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-        <div className="flex flex-col gap-3 mt-4">
+      <CardContent className="flex-1 mt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+          {/* 🔵 LEFT */}
           <div className="flex flex-col">
-            {salePrice ? (
-              <>
-                <span className="text-xs line-through text-muted-foreground">
-                  {price} kr
-                </span>
-                <span className="font-semibold text-red-500">
-                  {salePrice} kr
-                </span>
-              </>
-            ) : (
-              <span className="font-semibold">{price} kr</span>
+            <CardTitle className="text-base">{name}</CardTitle>
+
+            <p className="text-sm text-muted-foreground mt-1">{description}</p>
+
+            {bundleItems && bundleItems.length > 0 && (
+              <div className="mt-2 text-xs text-muted-foreground">
+                <p className="font-medium text-foreground">Innehåller:</p>
+                <ul className="mt-1 space-y-1">
+                  {bundleItems.map((item) => (
+                    <li key={item.productId}>
+                      • {item.product.name} x{item.quantity}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
+            {/* 🔵 BOTTOM */}
+            <div className="mt-auto pt-2">
+              <Link href={`/product/${productId}`}>
+                <Button variant="link" className="p-0 h-auto text-muted-foreground font-extralight">
+                  Läs mer
+                </Button>
+              </Link>
+            </div>
           </div>
 
-          <ProductCardActions
-            badge={badge}
-            productId={productId}
-          />
+          {/* 🟢 RIGHT */}
+          <div className="flex flex-col justify-between md:items-end md:text-right h-full">
+            {/* 🔵 TOP (mobil = rad, desktop = kolumn) */}
+            <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full h-full gap-3">
+              {/* PRICE */}
+              <div>
+                {salePrice ? (
+                  <>
+                    <span className="text-xs line-through text-muted-foreground block">
+                      {price} kr
+                    </span>
+                    <span className="font-semibold text-red-500">
+                      {salePrice} kr
+                    </span>
+                  </>
+                ) : (
+                  <span className="font-semibold">{price} kr</span>
+                )}
+              </div>
+
+              {/* ACTIONS */}
+              <div className="flex items-center gap-2 md:mt-2">
+                <ProductCardActions badge={badge} productId={productId} />
+              </div>
+            </div>
+          </div>
         </div>
-        <Link href={`/product/${productId}`}>
-          <Button variant="link" className="">
-            Läs mer
-          </Button>
-        </Link>
       </CardContent>
     </Card>
   );
