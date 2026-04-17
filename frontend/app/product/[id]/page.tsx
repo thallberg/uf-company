@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getProductById } from "@/api/Product.api";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ProductCardActions } from "@/components/features/product/ProductCardActions";
 
 type Props = {
@@ -130,39 +130,42 @@ export default async function ProductPage({ params }: Props) {
       </div>
 
       {/* 🔥 BUNDLE CONTENT */}
-      {bundleItems.length > 0 && (
-        <div className="mt-12 flex flex-col justify-center items-center">
-          <h2 className="text-xl font-semibold mb-4">
-            Detta ingår i kassen
-          </h2>
+{bundleItems.length > 0 && (
+  <div className="mt-12 flex flex-col justify-center items-center">
+    <h2 className="text-xl font-semibold mb-4">
+      Detta ingår i kassen
+    </h2>
 
-          <div className="flex flex-wrap gap-3">
-            {bundleItems.map((item) => (
-              <div
-                key={item.productId}
-                className="flex items-center gap-2 px-3 py-2 bg-background hover:bg-muted transition"
-              >
-                {/* ICON */}
-                <div className="relative w-8 h-8 bg-muted rounded-full overflow-hidden shrink-0">
-                  {item.product.imageUrl && (
-                    <Image
-                      src={item.product.imageUrl}
-                      alt={item.product.name}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </div>
+    <div className="grid grid-cols-1 md:grid-cols-4">
+      {bundleItems.map((item) => (
+        <Badge
+          key={item.productId}
+          variant='outline'
+          className="flex items-center gap-2 px-4 py-6 border-none"
+        >
+          {/* 🔵 Avatar */}
+          <Avatar className="h-10 w-10">
+            {item.product.imageUrl ? (
+              <AvatarImage
+                src={item.product.imageUrl}
+                alt={item.product.name}
+              />
+            ) : (
+              <AvatarFallback className="text-[10px]">
+                {item.product.name.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            )}
+          </Avatar>
 
-                {/* TEXT */}
-                <span className="text-xs font-medium">
-                  {item.product.name} x{item.quantity}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+          {/* 🔵 Text */}
+          <span className="text-xs font-medium">
+            {item.product.name} x{item.quantity}
+          </span>
+        </Badge>
+      ))}
+    </div>
+  </div>
+)}
     </div>
   );
 }
