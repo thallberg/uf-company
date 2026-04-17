@@ -5,11 +5,11 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ProductCardActions } from "@/components/features/product/ProductCardActions";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>; // 🔥 Next 16
 };
 
 export default async function ProductPage({ params }: Props) {
-  const { id } = params;
+   const { id } = await params; // 🔥 MÅSTE awaitas
   const product = await getProductById(Number(id));
 
   if (!product) {

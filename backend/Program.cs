@@ -111,27 +111,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    var users = db.Users.ToList();
-
-    Console.WriteLine("==== USERS IN DATABASE ====");
-
-    foreach (var user in users)
-    {
-        Console.WriteLine($@"
-Id: {user.Id}
-Email: {user.Email}
-PasswordHash: {user.PasswordHash}
-FullName: {user.FullName}
-Address: {user.Address}
-City: {user.City}
-PostalCode: {user.PostalCode}
-Phone: {user.PhoneNumber}
---------------------------");
-    }
-}
-
 app.Run();

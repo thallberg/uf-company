@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -40,11 +44,20 @@ export function ProductCard(props: Props) {
 
   const isOnSale = salePrice != null && salePrice < price;
 
+  const [showAllContents, setShowAllContents] = useState(false);
+
+  const hasMoreBundleItems = (bundleItems?.length ?? 0) > 2;
+  const displayedBundleItems = bundleItems
+    ? showAllContents
+      ? bundleItems
+      : bundleItems.slice(0, 2)
+    : [];
+
   const discount =
     salePrice != null ? Math.round(((price - salePrice) / price) * 100) : null;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 w-full max-w-md min-h-144">
+    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 w-full max-w-md">
       <div className="relative aspect-square bg-muted max-h-68 overflow-hidden">
         {imageUrl && (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
@@ -83,12 +96,27 @@ export function ProductCard(props: Props) {
               <div className="mt-2 text-xs text-muted-foreground">
                 <p className="font-medium text-foreground">Innehåller:</p>
                 <ul className="mt-1 space-y-1">
-                  {bundleItems.map((item) => (
+                  {displayedBundleItems.map((item) => (
                     <li key={item.productId}>
                       • {item.product.name} x{item.quantity}
                     </li>
                   ))}
                 </ul>
+
+                {hasMoreBundleItems && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllContents((prev) => !prev)}
+                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-brand-foreground hover:text-brand-foreground/80"
+                  >
+                    {showAllContents ? "Visa mindre" : `Visa ${bundleItems.length - 3} till`}
+                    {showAllContents ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </button>
+                )}
               </div>
             )}
             {/* 🔵 BOTTOM */}
