@@ -2,7 +2,7 @@ import { getProducts } from "@/api/Product.api";
 import { ProductCard } from "./ProductCard";
 
 export async function ProductGrid() {
-  const products = await getProducts();
+  const products = await getProducts("Bundle");
 
   return (
     <div className="flex flex-wrap gap-4 justify-center">

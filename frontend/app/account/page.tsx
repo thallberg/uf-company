@@ -27,7 +27,11 @@ export default function AccountPage() {
 
   if (!ready) return null;
 
-  if (!loggedIn) return <AuthSection />;
+  if (!loggedIn) return (
+    <div className="mt-22 mb-4">
+      <AuthSection />;
+    </div>
+  )
 
   if (admin) return <AdminDashboard />;
 
