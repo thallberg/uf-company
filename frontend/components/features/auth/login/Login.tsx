@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
 import { CircleCheckIcon, XIcon } from "lucide-react";
-
+import { getMe } from "@/api/User.api";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { CardContent } from "@/components/ui/card";
@@ -29,10 +29,18 @@ export function LoginFormClient({ content }: any) {
       onSubmit: loginSchema,
     },
     onSubmit: async ({ value }) => {
-      const res = await loginAction(value);
-      localStorage.setItem("token", res.token);
-      setStatus("success");
-      setMessage("Inloggning lyckades.");
+      try {
+        const res = await loginAction(value);
+        localStorage.setItem("token", res.token);
+        const user = await getMe();
+        localStorage.setItem("user", JSON.stringify(user));
+        window.dispatchEvent(new Event("auth-change"));
+        setStatus("success");
+        setMessage("Inloggning lyckades."); // Notify other tabs about the login
+      } catch (error) {
+        setStatus("error");
+        setMessage("Fel vid inloggning."); // Notify other tabs about the login
+      }
     },
   });
 

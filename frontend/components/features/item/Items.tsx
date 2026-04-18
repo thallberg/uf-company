@@ -7,14 +7,14 @@ import { SingleItem } from "./SingleItem";
 export function Item() {
     return (
         <div className="container mx-auto px-6">
-            <div className="flex flex-col divide-y md:grid md:grid-cols-4 md:divide-y-0 md:gap-6">
+            <div className="flex flex-col divide-y gap-4 sm:flex-row sm:divide-none">
 
                 {itemContent.items.map((item, i) => (
                     <div
                         key={i}
-                        className="flex py-4 w-full md:py-0"
+                        className="flex w-full"
                     >
-                        <div className="w-full">
+                        <div className="w-full py-6">
                             <SingleItem
                                 icon={item.icon}
                                 title={item.title}

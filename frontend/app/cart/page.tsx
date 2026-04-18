@@ -1,22 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartStep } from "@/components/features/cart/CartStep";
 import { CheckoutStep } from "@/components/features/cart/CheckoutStep";
 import { ConfirmStep } from "@/components/features/cart/ConfirmStep";
 import { Button } from "@/components/ui/button";
+import { getCart, type CartItemProps } from "@/lib/cart";
 
 export default function CartPage() {
   const [step, setStep] = useState(1);
-  const [cart] = useState([
-    {
-      id: 1,
-      name: "Lunchkasse",
-      price: 299,
-      quantity: 1,
-    },
-  ]);
-
+  const [cart, setCart] = useState<CartItemProps[]>(() => getCart());
 
   const [customer, setCustomer] = useState({
     name: "",
@@ -25,8 +18,15 @@ export default function CartPage() {
     postalCode: "",
   });
 
+  useEffect(() => {
+  const update = () => setCart(getCart());
+
+  window.addEventListener("cart-change", update);
+  return () => window.removeEventListener("cart-change", update);
+}, []);
+
   return (
-    <div className="container mx-auto w-full py-10 px-4">
+    <div className="container mx-auto w-full mt-24 px-4">
       {/* 🔥 STEPPER */}
       <div className="relative mb-10">
         {/* 🔙 BACK BUTTON (vänster) */}
@@ -64,7 +64,14 @@ export default function CartPage() {
 
       {/* 🔥 STEPS */}
       {step === 1 && <CartStep onNext={() => setStep(2)} />}
-      {step === 2 && <CheckoutStep onNext={() => setStep(3)} />}
+      {step === 2 && (
+        <CheckoutStep
+          onNext={(data) => {
+            setCustomer(data);
+            setStep(3);
+          }}
+        />
+      )}
       {step === 3 && <ConfirmStep cart={cart} customer={customer} />}
       <div className="flex justify-start mb-6"></div>
     </div>

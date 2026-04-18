@@ -37,16 +37,16 @@ public class ProductController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(Product product)
     {
-        await _service.CreateAsync(product);
-        return Ok();
+        var created = await _service.CreateAsync(product);
+        return Ok(created);
     }
 
     [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Product product)
     {
-        await _service.UpdateAsync(id, product);
-        return Ok();
+        var updated = await _service.UpdateAsync(id, product);
+        return Ok(updated);
     }
 
     [Authorize(Roles = "Admin")]
@@ -54,14 +54,14 @@ public class ProductController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         await _service.DeleteAsync(id);
-        return Ok();
+        return NoContent();
     }
 
     [Authorize(Roles = "Admin")]
-[HttpPost("bundle")]
-public async Task<IActionResult> AddToBundle(ProductBundleDto dto)
-{
-    await _service.AddProductToBundleAsync(dto);
-    return Ok();
-}
+    [HttpPost("bundle")]
+    public async Task<IActionResult> AddToBundle(ProductBundleDto dto)
+    {
+        await _service.AddProductToBundleAsync(dto);
+        return Ok(new { success = true });
+    }
 }

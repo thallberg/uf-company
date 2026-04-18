@@ -4,6 +4,7 @@ export type User = {
   id: number;
   fullName: string;
   email: string;
+  role: string; 
   address?: string;
   postalCode?: string;
 };

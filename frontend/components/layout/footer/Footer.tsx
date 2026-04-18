@@ -1,36 +1,74 @@
-﻿import Link from "next/link";
+﻿"use client";
 
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { footerContent } from "@/content/footer/Footer.content";
-import { footerLinks } from "./Footer.links";
+import { footerLinks, socialLinks } from "./Footer.links";
+import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   return (
     <footer className="bg-brand-green">
-      <div className="container mx-auto px-4 py-10 grid gap-6 md:grid-cols-3 md:justify-items-center text-center">
-        <div className="mx-auto w-full max-w-xs md:mx-0">
-          <h3 className="font-semibold mb-2 text-brand-white">{footerContent.title}</h3>
-          <p className="text-sm text-accent">{footerContent.description}</p>
+      <div className="py-12 flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-start sm:mx-auto sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-225">
+        {/* 🔵 BRAND */}
+        <div className="flex flex-col items-center">
+          <h3 className="text-lg font-semibold text-brand-white">
+            {footerContent.title}
+          </h3>
+
+          <p className="text-sm text-brand-white/80 leading-relaxed">
+            {footerContent.description}
+          </p>
         </div>
 
-        <div className="mx-auto w-full max-w-xs md:mx-0">
-          <h3 className="font-semibold mb-2 text-brand-white">{footerContent.linksTitle}</h3>
-          <div className="text-sm">
+        {/* 🟢 NAV LINKS */}
+        <div className="flex flex-col items-center">
+          <h3 className="text-lg font-semibold text-brand-white">
+            {footerContent.linksTitle}
+          </h3>
+
+          <div className="flex flex-col">
             {footerLinks.map((link) => (
-              <Button key={link.href.toString()} asChild variant="link" className="w-full p-0 text-brand-white">
-                <Link href={link.href}>{link.label}</Link>
-              </Button>
+              <Link
+                key={link.href.toString()}
+                href={link.href}
+                className="text-sm text-brand-white/80 mt-1"
+              >
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-xs md:mx-0">
-          <h3 className="font-semibold mb-2 text-brand-white">{footerContent.contactTitle}</h3>
-          <p className="text-sm text-brand-white">{footerContent.contactEmail}</p>
+        {/* 🟣 CONTACT + SOCIAL */}
+        <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-col justify-center items-center">
+            <h3 className="text-lg font-semibold text-brand-white">
+              {footerContent.contactTitle}
+            </h3>
+
+            <p className="text-sm text-brand-white/80 mt-1">
+              {footerContent.contactEmail}
+            </p>
+          </div>
+
+          {/* 🔥 SOCIALS */}
+          <div className="flex items-center gap-3">
+            {socialLinks.map((social) => (
+              <Link
+                key={social.href}
+                href={social.href}
+                target="_blank"
+                className="p-2 rounded-md bg-white/10 hover:bg-white/20 transition"
+              >
+                <social.icon className="w-5 h-5 text-brand-yellow" />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className="border-t px-4 py-4 text-sm text-brand-white">
+      <Separator />
+      {/* 🔻 BOTTOM */}
+      <div className=" px-4 py-4 text-sm text-center text-brand-white/70">
         {footerContent.footerNote}
       </div>
     </footer>

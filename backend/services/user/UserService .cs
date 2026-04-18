@@ -18,6 +18,7 @@ public class UserService : IUserService
         {
             Email = user.Email,
             FullName = user.FullName,
+            Role = user.Role,
             Address = user.Address,
             City = user.City,
             PostalCode = user.PostalCode,

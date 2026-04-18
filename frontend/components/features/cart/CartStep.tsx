@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartItem } from "./CartItem";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { getCart, saveCart, type CartItemProps } from "@/lib/cart";
 
 type CartProduct = {
   id: number;
@@ -18,53 +19,37 @@ type Props = {
 };
 
 export function CartStep({ onNext }: Props) {
-  const [cart, setCart] = useState<CartProduct[]>([
-    {
-      id: 1,
-      name: "Lunchkasse",
-      description: "Perfekt för 3 måltider",
-      price: 299,
-      quantity: 1,
-    },
-  ]);
+  const [cart, setCart] = useState<CartItemProps[]>(() => getCart());
 
   const updateQuantity = (id: number, qty: number) => {
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, qty) }
-          : item
-      )
+    const updated = cart.map((item) =>
+      item.id === id ? { ...item, quantity: Math.max(1, qty) } : item,
     );
+
+    setCart(updated);
+    saveCart(updated); // 🔥 viktigt
   };
 
   const removeItem = (id: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    const updated = cart.filter((item) => item.id !== id);
+
+    setCart(updated);
+    saveCart(updated);
   };
 
-  const total = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <div className="grid md:grid-cols-1 gap-2 w-full">
-
       {/* LEFT */}
       <div className="md:col-span-2 space-y-4">
         {cart.map((item) => (
           <CartItem
             key={item.id}
             {...item}
-            onIncrease={() =>
-              updateQuantity(item.id, item.quantity + 1)
-            }
-            onDecrease={() =>
-              updateQuantity(item.id, item.quantity - 1)
-            }
-            onChange={(value) =>
-              updateQuantity(item.id, value)
-            }
+            onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
+            onDecrease={() => updateQuantity(item.id, item.quantity - 1)}
+            onChange={(value) => updateQuantity(item.id, value)}
             onRemove={() => removeItem(item.id)}
           />
         ))}
@@ -80,11 +65,7 @@ export function CartStep({ onNext }: Props) {
             <span>{total} kr</span>
           </div>
 
-          <Button
-            className="w-full"
-            onClick={onNext}
-            disabled={!cart.length}
-          >
+          <Button className="w-full" onClick={onNext} disabled={!cart.length}>
             Till kassan
           </Button>
         </CardContent>

@@ -1,27 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { isLoggedIn } from "@/lib/Auth";
-
-import { AuthSection } from "@/components/layout/auth-section/AuthSection";
 import { AccountDetails } from "@/components/features/account/AccountDetails";
+import { AdminDashboard } from "@/components/features/admin/AdminDashboard";
+import { AuthSection } from "@/components/layout/auth-section/AuthSection";
+import { isAdmin, isLoggedIn } from "@/lib/Auth";
+import { useEffect, useState } from "react";
 
 export default function AccountPage() {
-const [loggedIn, setLoggedIn] = useState(() => isLoggedIn());
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [admin, setAdmin] = useState(false);
+  const [ready, setReady] = useState(false);
 
-useEffect(() => {
-  const update = () => setLoggedIn(isLoggedIn());
+  useEffect(() => {
+    // ✅ detta räknas som "external sync"
+    const update = () => {
+      setLoggedIn(isLoggedIn());
+      setAdmin(isAdmin());
+      setReady(true);
+    };
 
-  window.addEventListener("auth-change", update);
-  return () => window.removeEventListener("auth-change", update);
-}, []);
+    update(); // 👈 OK här eftersom det är "sync from external source"
 
-  // undvik flicker
-  if (loggedIn === null) return null;
+    window.addEventListener("auth-change", update);
+    return () => window.removeEventListener("auth-change", update);
+  }, []);
 
-  return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {loggedIn ? <AccountDetails /> : <AuthSection />}
-    </div>
-  );
+  if (!ready) return null;
+
+  if (!loggedIn) return <AuthSection />;
+
+  if (admin) return <AdminDashboard />;
+
+  return <AccountDetails />;
 }

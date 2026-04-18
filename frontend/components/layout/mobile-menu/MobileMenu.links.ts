@@ -20,11 +20,6 @@ export const mobileNavLinks = [
 
 export const mobileBottomLinks = [
   {
-    label: "Varukorg",
-    href: "/cart",
-    icon: ShoppingBag,
-  },
-  {
     label: "Konto",
     href: "/account",
     icon: User,

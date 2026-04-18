@@ -17,39 +17,42 @@ public class ProductService : IProductService
         return await _repo.GetByIdAsync(id);
     }
 
-    public async Task CreateAsync(Product product)
+    public async Task<Product> CreateAsync(Product product)
     {
         await _repo.AddAsync(product);
+        return product; // 🔥 viktigt
     }
 
-public async Task UpdateAsync(int id, Product updated)
-{
-    var existing = await _repo.GetByIdAsync(id);
-    if (existing == null)
-        throw new Exception("Product not found");
+    public async Task<Product> UpdateAsync(int id, Product updated)
+    {
+        var existing = await _repo.GetByIdAsync(id);
+        if (existing == null)
+            throw new Exception("Product not found");
 
-    existing.Name = updated.Name;
-    existing.Description = updated.Description;
+        existing.Name = updated.Name;
+        existing.Description = updated.Description;
+        existing.LongDescription = updated.LongDescription;
+        existing.Origin = updated.Origin;
+        existing.MealsCount = updated.MealsCount;
+        existing.SalePrice = updated.SalePrice;
+        existing.Price = updated.Price;
+        existing.Stock = updated.Stock;
+        existing.Type = updated.Type;
+        existing.IsLocalOnly = updated.IsLocalOnly;
 
-    // 🔥 DETTA SAKNAS HOS DIG
-    existing.LongDescription = updated.LongDescription;
-    existing.Origin = updated.Origin;
-    existing.MealsCount = updated.MealsCount;
-    existing.SalePrice = updated.SalePrice;
+        await _repo.UpdateAsync(existing);
 
-    existing.Price = updated.Price;
-    existing.Stock = updated.Stock;
-    existing.Type = updated.Type;
-    existing.IsLocalOnly = updated.IsLocalOnly;
-
-    await _repo.UpdateAsync(existing);
-}
+        return existing; // 🔥 viktigt
+    }
 
     public async Task DeleteAsync(int id)
     {
-        var product = await _repo.GetByIdAsync(id);
+        var product = await _repo.GetByIdForDeleteAsync(id);
+
         if (product == null)
             throw new Exception("Product not found");
+
+        await _repo.RemoveFromBundles(id);
 
         await _repo.DeleteAsync(product);
     }
@@ -78,15 +81,15 @@ public async Task UpdateAsync(int id, Product updated)
         };
     }
 
-public async Task AddProductToBundleAsync(ProductBundleDto dto)
-{
-    var bundle = new ProductBundle
+    public async Task AddProductToBundleAsync(ProductBundleDto dto)
     {
-        BundleId = dto.BundleId,
-        ProductId = dto.ProductId,
-        Quantity = dto.Quantity
-    };
+        var bundle = new ProductBundle
+        {
+            BundleId = dto.BundleId,
+            ProductId = dto.ProductId,
+            Quantity = dto.Quantity
+        };
 
-    await _repo.AddProductToBundleAsync(bundle);
-}
+        await _repo.AddProductToBundleAsync(bundle);
+    }
 }

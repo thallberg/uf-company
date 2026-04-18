@@ -5,7 +5,7 @@ export async function ProductGrid() {
   const products = await getProducts();
 
   return (
-    <div className="flex flex-row flex-wrap gap-6 justify-center h-full w-full">
+    <div className="flex flex-wrap gap-4 justify-center">
       {products.map((product) => (
         <ProductCard
           key={product.id}
@@ -17,7 +17,7 @@ export async function ProductGrid() {
           imageUrl={product.imageUrl}
           badge={product.stock === 0 ? "Slut" : undefined}
           badgeVariant="destructive"
-          bundleItems={product.bundleItems} // 🔥 viktigt
+          bundleItems={product.bundleItems}
         />
       ))}
     </div>

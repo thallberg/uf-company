@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -39,25 +37,15 @@ export function ProductCard(props: Props) {
     badgeVariant,
     salePrice,
     productId,
-    bundleItems,
   } = props;
 
   const isOnSale = salePrice != null && salePrice < price;
-
-  const [showAllContents, setShowAllContents] = useState(false);
-
-  const hasMoreBundleItems = (bundleItems?.length ?? 0) > 2;
-  const displayedBundleItems = bundleItems
-    ? showAllContents
-      ? bundleItems
-      : bundleItems.slice(0, 2)
-    : [];
 
   const discount =
     salePrice != null ? Math.round(((price - salePrice) / price) * 100) : null;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 w-full max-w-md">
+    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 gap-0 w-72 md:w-80">
       <div className="relative aspect-square bg-muted max-h-68 overflow-hidden">
         {imageUrl && (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
@@ -74,55 +62,26 @@ export function ProductCard(props: Props) {
         )}
       </div>
 
-      <CardHeader className="space-y-1">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-base">{name}</CardTitle>
-
-          {!isOnSale && badge && (
-            <Badge variant={badgeVariant ?? "destructive"}>{badge}</Badge>
-          )}
-        </div>
+      <CardHeader>
+        <CardTitle className="text-base mt-4">{name}</CardTitle>
+        {!isOnSale && badge && (
+          <Badge variant={badgeVariant ?? "destructive"}>{badge}</Badge>
+        )}
       </CardHeader>
 
-      <CardContent className="flex-1 mt-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+      <CardContent className="flex-1">
+        <div className="grid grid-cols-1 h-full">
           {/* 🔵 LEFT */}
           <div className="flex flex-col">
-            <CardTitle className="text-base">{name}</CardTitle>
+            <p className="text-sm text-muted-foreground mt-2">{description}</p>
 
-            <p className="text-sm text-muted-foreground mt-1">{description}</p>
-
-            {bundleItems && bundleItems.length > 0 && (
-              <div className="mt-2 text-xs text-muted-foreground">
-                <p className="font-medium text-foreground">Innehåller:</p>
-                <ul className="mt-1 space-y-1">
-                  {displayedBundleItems.map((item) => (
-                    <li key={item.productId}>
-                      • {item.product.name} x{item.quantity}
-                    </li>
-                  ))}
-                </ul>
-
-                {hasMoreBundleItems && (
-                  <button
-                    type="button"
-                    onClick={() => setShowAllContents((prev) => !prev)}
-                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-brand-foreground hover:text-brand-foreground/80"
-                  >
-                    {showAllContents ? "Visa mindre" : `Visa ${bundleItems.length - 3} till`}
-                    {showAllContents ? (
-                      <ChevronUp className="h-4 w-4" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4" />
-                    )}
-                  </button>
-                )}
-              </div>
-            )}
             {/* 🔵 BOTTOM */}
             <div className="mt-auto pt-2">
               <Link href={`/product/${productId}`}>
-                <Button variant="link" className="p-0 h-auto text-muted-foreground font-extralight">
+                <Button
+                  variant="link"
+                  className="p-0 h-auto text-muted-foreground font-extralight"
+                >
                   Läs mer
                 </Button>
               </Link>
@@ -130,14 +89,13 @@ export function ProductCard(props: Props) {
           </div>
 
           {/* 🟢 RIGHT */}
-          <div className="flex flex-col justify-between md:items-end md:text-right h-full">
-            {/* 🔵 TOP (mobil = rad, desktop = kolumn) */}
-            <div className="flex flex-row md:flex-col items-center md:items-end justify-between w-full h-full gap-3">
+          <div className="flex flex-col justify-between h-full">
+            <div className="flex flex-col items-start">
               {/* PRICE */}
-              <div>
+              <div className="flex flex-row gap-1 items-center pt-2">
                 {salePrice ? (
                   <>
-                    <span className="text-xs line-through text-muted-foreground block">
+                    <span className="text-xs line-through text-muted-foreground">
                       {price} kr
                     </span>
                     <span className="font-semibold text-red-500">
@@ -150,8 +108,13 @@ export function ProductCard(props: Props) {
               </div>
 
               {/* ACTIONS */}
-              <div className="flex items-center gap-2 md:mt-2">
-                <ProductCardActions badge={badge} productId={productId} />
+              <div className="flex w-full pt-2">
+                <ProductCardActions
+                  badge={badge}
+                  productId={productId}
+                  name={name}
+                  price={salePrice ?? price}
+                />
               </div>
             </div>
           </div>
