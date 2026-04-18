@@ -10,7 +10,7 @@ export function AdminDashboard() {
 
       <div className="grid md:grid-cols-2 gap-4">
         
-        {/* 📦 PRODUCTS */}
+        {/* PRODUCTS */}
         <Link href="/admin/products">
           <Card className="cursor-pointer hover:shadow-md transition">
             <CardContent className="p-6 space-y-2">
@@ -22,7 +22,7 @@ export function AdminDashboard() {
           </Card>
         </Link>
 
-        {/* 👤 USERS (framtid) */}
+        {/* USERS (framtid) */}
         <Card className="opacity-50">
           <CardContent className="p-6 space-y-2">
             <h2 className="text-lg font-semibold text-brand-green">Användare</h2>

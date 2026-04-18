@@ -7,14 +7,15 @@ import {
   updateProduct,
   Product,
 } from "@/api/Product.api";
-import { ProductForm } from "@/components/features/admin/ProductForm";
+import { ProductForm } from "@/app/admin/components/ProductForm";
+import { Spinner } from "@/components/ui/spinner";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
 export default function EditProductPage({ params }: Props) {
-  const { id } = use(params); // 🔥 THIS IS THE FIX
+  const { id } = use(params); 
 
   const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
@@ -23,7 +24,7 @@ export default function EditProductPage({ params }: Props) {
     getProductById(Number(id)).then(setProduct);
   }, [id]);
 
-  if (!product) return <p>Laddar...</p>;
+  if (!product) return <div> <Spinner className="h-12 w-12 text-brand-blue" /> </div>;
 
   return (
     <div className="container mx-auto py-10 mt-10 max-w-xl space-y-6">

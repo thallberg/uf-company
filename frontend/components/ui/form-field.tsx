@@ -1,49 +1,46 @@
-"use client"
+"use client";
 
-import { Input } from "@/components/ui/input"
-import { XIcon } from "lucide-react"
+import { Input } from "@/components/ui/input";
+import {
+  Field,
+  FieldContent,
+  FieldLabel,
+  FieldError,
+} from "@/components/ui/field";
 
 type Props = {
-  field: any
-  placeholder: string
-  type?: string
-}
+  field: any;
+  label: string;
+  placeholder?: string;
+  type?: string;
+};
 
-export function FormField({ field, placeholder, type = "text" }: Props) {
+export function FormField({
+  field,
+  label,
+  placeholder,
+  type = "text",
+}: Props) {
   const isInvalid =
-    field.state.meta.isTouched && !field.state.meta.isValid
-
-  const error = field.state.meta.errors[0]
-
-  const formatError = (err: unknown) => {
-    if (typeof err === "string") return err
-    if (typeof err === "object" && err !== null) {
-      const msg = (err as { message?: unknown }).message
-      if (typeof msg === "string") return msg
-    }
-    return String(err)
-  }
+    field.state.meta.isTouched && !field.state.meta.isValid;
 
   return (
-    <div className="space-y-2 mt-1">
-      <Input
-        id={field.name}
-        name={field.name}
-        type={type}
-        value={field.state.value ?? ""}
-        onChange={(e) => field.handleChange(e.target.value)}
-        onBlur={field.handleBlur}
-        placeholder={placeholder}
-        aria-invalid={isInvalid}
-        className="h-12"
-      />
+    <Field data-invalid={isInvalid}>
+      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
 
-      {isInvalid && error && (
-        <p className="text-sm text-destructive flex items-center gap-2">
-          <XIcon className="h-4 w-4" />
-          {formatError(error)}
-        </p>
-      )}
-    </div>
-  )
+      <FieldContent>
+        <Input
+          id={field.name}
+          name={field.name}
+          type={type}
+          value={field.state.value ?? ""}
+          onChange={(e) => field.handleChange(e.target.value)}
+          onBlur={field.handleBlur}
+          placeholder={placeholder}
+        />
+
+        <FieldError errors={field.state.meta.errors} />
+      </FieldContent>
+    </Field>
+  );
 }

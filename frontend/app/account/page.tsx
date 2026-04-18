@@ -1,7 +1,7 @@
 "use client";
 
 import { AccountDetails } from "@/components/features/account/AccountDetails";
-import { AdminDashboard } from "@/components/features/admin/AdminDashboard";
+import { AdminDashboard } from "@/app/admin/components/AdminDashboard";
 import { AuthSection } from "@/components/layout/auth-section/AuthSection";
 import { isAdmin, isLoggedIn } from "@/lib/Auth";
 import { useEffect, useState } from "react";
@@ -12,14 +12,13 @@ export default function AccountPage() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // ✅ detta räknas som "external sync"
     const update = () => {
       setLoggedIn(isLoggedIn());
       setAdmin(isAdmin());
       setReady(true);
     };
 
-    update(); // 👈 OK här eftersom det är "sync from external source"
+    update(); 
 
     window.addEventListener("auth-change", update);
     return () => window.removeEventListener("auth-change", update);

@@ -5,6 +5,14 @@ import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { useForm } from "@tanstack/react-form";
 
+const fields = [
+  { name: "fullName", label: "Namn", placeholder: "Fullständigt namn" },
+  { name: "address", label: "Adress", placeholder: "Adress" },
+  { name: "city", label: "Stad", placeholder: "Stad" },
+  { name: "postalCode", label: "Postnummer", placeholder: "Postnummer" },
+  { name: "phoneNumber", label: "Telefon", placeholder: "Telefonnummer" },
+] as const;
+
 export function AccountDetails() {
   const [saved, setSaved] = useState(false);
 
@@ -38,34 +46,24 @@ export function AccountDetails() {
         }}
         className="space-y-4"
       >
-        <form.Field name="fullName">
-          {(field) => <FormField field={field} placeholder="Fullständigt namn" />}
-        </form.Field>
-
-        <form.Field name="address">
-          {(field) => <FormField field={field} placeholder="Adress" />}
-        </form.Field>
-
-        <form.Field name="city">
-          {(field) => <FormField field={field} placeholder="Stad" />}
-        </form.Field>
-
-        <form.Field name="postalCode">
-          {(field) => <FormField field={field} placeholder="Postnummer" />}
-        </form.Field>
-
-        <form.Field name="phoneNumber">
-          {(field) => <FormField field={field} placeholder="Telefonnummer" />}
-        </form.Field>
+        {fields.map((f) => (
+          <form.Field key={f.name} name={f.name}>
+            {(field) => (
+              <FormField
+                label={f.label}
+                field={field}
+                placeholder={f.placeholder}
+              />
+            )}
+          </form.Field>
+        ))}
 
         <Button type="submit" className="w-full">
           Spara uppgifter
         </Button>
 
         {saved && (
-          <p className="text-sm text-brand-green">
-            Uppgifterna sparades ✅
-          </p>
+          <p className="text-sm text-brand-green">Uppgifterna sparades ✅</p>
         )}
       </form>
     </div>

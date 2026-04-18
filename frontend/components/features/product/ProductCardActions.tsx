@@ -15,7 +15,6 @@ type Props = {
 };
 
 export function ProductCardActions({ badge, productId, name, price }: Props) {
-  const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
