@@ -1,12 +1,18 @@
 import { getProducts } from "@/api/Product.api";
 import { ProductCard } from "./ProductCard";
 
-export async function ProductGrid() {
+type Props = {
+  limit?: number;
+};
+
+export async function ProductGrid({ limit }: Props) {
   const products = await getProducts("Bundle");
+
+  const displayedProducts = limit ? products.slice(0, limit) : products;
 
   return (
     <div className="flex flex-wrap gap-4 justify-center">
-      {products.map((product) => (
+      {displayedProducts.map((product) => (
         <ProductCard
           key={product.id}
           productId={product.id}

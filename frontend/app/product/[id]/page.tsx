@@ -27,7 +27,7 @@ export default async function ProductPage({ params }: Props) {
   const bundleItems = product.bundleItems ?? [];
 
   return (
-    <div className="container mx-auto py-12 px-4 mt-12">
+    <div className="container mx-auto py-12 px-4 mt-12 max-w-3xl mx-auto">
       {/* 🔥 TOP SECTION */}
       <div className="grid md:grid-cols-2 gap-10 items-start">
         {/* IMAGE */}
@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: Props) {
       </div>
 
       {/* 🔥 BOTTOM SECTION */}
-      <div className="mt-10 grid md:grid-cols-2 gap-10">
+      <div className="mt-10 grid md:grid-cols-2 gap-10 m">
         {/* 🟣 LEFT - bundle */}
         {bundleItems.length > 0 && (
           <div>

@@ -45,7 +45,7 @@ export function ProductCard(props: Props) {
     salePrice != null ? Math.round(((price - salePrice) / price) * 100) : null;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col py-0 pb-4 gap-0 w-72 md:w-80">
+    <Card className="overflow-hidden flex flex-col py-0 pb-4 gap-0 w-60">
       <div className="relative aspect-square bg-muted max-h-68 overflow-hidden">
         {imageUrl && (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
@@ -69,7 +69,7 @@ export function ProductCard(props: Props) {
         )}
       </CardHeader>
 
-      <CardContent className="flex-1">
+      <CardContent className="flex flex-col flex-1">
         <div className="grid grid-cols-1 h-full">
           {/* 🔵 LEFT */}
           <div className="flex flex-col">
@@ -89,7 +89,7 @@ export function ProductCard(props: Props) {
           </div>
 
           {/* 🟢 RIGHT */}
-          <div className="flex flex-col justify-between h-full">
+          <div className="mt-auto">
             <div className="flex flex-col items-start">
               {/* PRICE */}
               <div className="flex flex-row gap-1 items-center pt-2">
