@@ -23,28 +23,56 @@ public class ProductService : IProductService
         return product; // 🔥 viktigt
     }
 
-    public async Task<Product> UpdateAsync(int id, Product updated)
+    public async Task<Product> UpdateAsync(int id, UpdateProductDto dto)
     {
         var existing = await _repo.GetByIdAsync(id);
+
         if (existing == null)
             throw new Exception("Product not found");
 
-        existing.Name = updated.Name;
-        existing.Description = updated.Description;
-        existing.LongDescription = updated.LongDescription;
-        existing.Origin = updated.Origin;
-        existing.MealsCount = updated.MealsCount;
-        existing.SalePrice = updated.SalePrice;
-        existing.Price = updated.Price;
-        existing.Stock = updated.Stock;
-        existing.Type = updated.Type;
-        existing.IsLocalOnly = updated.IsLocalOnly;
+        // Uppdatera bara det som skickas in
+
+        if (dto.Name != null)
+            existing.Name = dto.Name;
+
+        if (dto.Description != null)
+            existing.Description = dto.Description;
+
+        if (dto.LongDescription != null)
+            existing.LongDescription = dto.LongDescription;
+
+        if (dto.Origin != null)
+            existing.Origin = dto.Origin;
+
+        if (dto.MealsCount.HasValue)
+            existing.MealsCount = dto.MealsCount.Value;
+
+        if (dto.Price.HasValue)
+            existing.Price = dto.Price.Value;
+
+        if (dto.SetSalePrice)
+        {
+            existing.SalePrice = dto.SalePrice; // kan vara null eller number
+        }
+
+        if (dto.Type != null)
+            existing.Type = dto.Type;
+
+        if (dto.IsLocalOnly.HasValue)
+            existing.IsLocalOnly = dto.IsLocalOnly.Value;
+
+        if (dto.IsPopular.HasValue)
+            existing.IsPopular = dto.IsPopular.Value;
+
+        if (dto.Stock.HasValue)
+            existing.Stock = dto.Stock.Value;
+
+
 
         await _repo.UpdateAsync(existing);
 
-        return existing; // 🔥 viktigt
+        return existing;
     }
-
     public async Task DeleteAsync(int id)
     {
         var product = await _repo.GetByIdForDeleteAsync(id);

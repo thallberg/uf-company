@@ -57,3 +57,4 @@ function Badge({
 }
 
 export { Badge, badgeVariants }
+export type BadgeProps = React.ComponentProps<typeof Badge>;

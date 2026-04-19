@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ProductCardActions } from "./ProductCardActions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import type { BadgeProps } from "@/components/ui/badge";
 
 type Props = {
   productId: number;
@@ -15,8 +16,9 @@ type Props = {
   price: number;
   imageUrl?: string;
   badge?: string;
-  badgeVariant?: "blue" | "destructive";
+  badgeVariant?: BadgeProps["variant"];
   salePrice?: number;
+  isOutOfStock?: boolean
 
   bundleItems?: {
     productId: number;
@@ -37,6 +39,7 @@ export function ProductCard(props: Props) {
     badgeVariant,
     salePrice,
     productId,
+    isOutOfStock,
   } = props;
 
   const isOnSale = salePrice != null && salePrice < price;
@@ -45,14 +48,27 @@ export function ProductCard(props: Props) {
     salePrice != null ? Math.round(((price - salePrice) / price) * 100) : null;
 
   return (
-    <Card className="overflow-hidden flex flex-col py-0 pb-4 gap-0 w-60">
+    <Card
+      className={`relative overflow-hidden flex flex-col py-0 pb-4 gap-0 w-60 ${isOutOfStock ? "opacity-60" : ""
+        }`}
+    >
+      {isOutOfStock && (
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-30">
+          <span className="text-white text-sm font-medium text-center px-3">
+            Kommer snart in i lager
+          </span>
+        </div>
+      )}
       <div className="relative aspect-square bg-muted max-h-68 overflow-hidden">
         {imageUrl && (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
         )}
 
+
+
+        {/* SALE BADGE */}
         {isOnSale && (
-          <div className="absolute top-2 left-2">
+          <div className="absolute top-2 left-2 z-20">
             <Avatar className="h-14 w-14">
               <AvatarFallback className="text-xs font-bold bg-brand-yellow text-primary border-2 border-white">
                 -{discount}%
@@ -60,20 +76,28 @@ export function ProductCard(props: Props) {
             </Avatar>
           </div>
         )}
+
+        {/* POPULAR / SLUT BADGE */}
+        {badge && (
+          <div className="absolute top-2 right-2 z-20">
+            <Badge className="py-3 px-3" variant={badgeVariant ?? "destructive"}>
+              {badge}
+            </Badge>
+          </div>
+        )}
       </div>
 
       <CardHeader>
         <CardTitle className="text-base mt-4">{name}</CardTitle>
-        {!isOnSale && badge && (
-          <Badge variant={badgeVariant ?? "destructive"}>{badge}</Badge>
-        )}
       </CardHeader>
 
       <CardContent className="flex flex-col flex-1">
         <div className="grid grid-cols-1 h-full">
           {/* 🔵 LEFT */}
           <div className="flex flex-col">
-            <p className="text-sm text-muted-foreground mt-2">{description}</p>
+            <p className="text-sm text-muted-foreground mt-2">
+              {description}
+            </p>
 
             {/* 🔵 BOTTOM */}
             <div className="mt-auto pt-2">
@@ -114,6 +138,7 @@ export function ProductCard(props: Props) {
                   productId={productId}
                   name={name}
                   price={salePrice ?? price}
+                  isDisabled={props.isOutOfStock} // 👈 viktigt
                 />
               </div>
             </div>

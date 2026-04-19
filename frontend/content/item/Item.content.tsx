@@ -1,6 +1,26 @@
+import {
+  Leaf,
+  Truck,
+  Package,
+  HeartHandshake,
+  Coffee,
+  CakeSlice,
+  Utensils,
+  MapPin,
+} from "lucide-react";
 
+export const iconMap = {
+  leaf: Leaf,
+  truck: Truck,
+  package: Package,
+  handshake: HeartHandshake,
+  coffee: Coffee,
+  cake: CakeSlice,
+  utensils: Utensils,
+  mapPin: MapPin,
+} as const;
 
-type IconName = "leaf" | "truck" | "package" | "handshake";
+export type IconName = keyof typeof iconMap;
 
 type Item = {
   icon: IconName;
@@ -8,7 +28,7 @@ type Item = {
   description: string;
 };
 
-export const itemContent: { items: Item[] } = {
+export const itemContent: { items: Item[]} = {
   items: [
     {
       icon: "leaf",
@@ -29,6 +49,23 @@ export const itemContent: { items: Item[] } = {
       icon: "handshake",
       title: "Stöd lokalt",
       description: "Varje köp stöttar små producenter",
+    },
+  ],
+};
+
+export const productShowcaseContent: { items: Item[]} = {
+  items: [
+    {
+      icon: "coffee",
+      title: "Frukost eller lunch",
+      description:
+        "Färdiga kassar med lokala råvaror för en enkla och goda variationer.",
+    },
+    {
+      icon: "cake",
+      title: "Bak",
+      description:
+        "Allt du behöver för att baka hemma – noggrant utvalt från lokala producenter.",
     },
   ],
 };

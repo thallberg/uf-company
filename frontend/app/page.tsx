@@ -2,11 +2,13 @@ import { AboutSection } from "@/components/features/about/AboutSection";
 import { HowItWorksSection } from "@/components/features/how-it-works/HowItWorksSection";
 import { ImageOverlayCard } from "@/components/features/image-overlay-card/ImageOverlayCard";
 import { Items } from "@/components/features/item/Items";
+import { ItemsShowcase } from "@/components/features/ItemsShowcase/ItemsShowcase";
 import { ProductGrid } from "@/components/features/product/ProductGrid";
 import { Hero } from "@/components/layout/hero/Hero";
 import { Button } from "@/components/ui/button";
 import { aboutSectionContent } from "@/content/about/About.section.data";
-import { itemContent } from "@/content/item/Item.content";
+import { itemContent, productShowcaseContent } from "@/content/item/Item.content";
+import { ItemsShowcaseContent } from "@/content/itemshowcase/ItemShowcase.content";
 import Link from "next/link";
 
 export default function Home() {
@@ -19,12 +21,8 @@ export default function Home() {
         <AboutSection {...aboutSectionContent} />
       </div>
       <div className="mt-12">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Populära produkter</h2>
-
-          <Link href="/products">
-            <Button variant="outline">Visa alla</Button>
-          </Link>
+        <div className="flex items-center justify-center mb-4 gap-2">
+          <ItemsShowcase items={productShowcaseContent.items} {...ItemsShowcaseContent} />
         </div>
         <ProductGrid limit={4} />
       </div>

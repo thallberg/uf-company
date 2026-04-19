@@ -1,14 +1,7 @@
 "use client";
 
+import { iconMap } from "@/content/item/Item.content";
 import { SingleItem } from "./SingleItem";
-import { Leaf, Truck, Package, HeartHandshake } from "lucide-react";
-
-const iconMap = {
-  leaf: Leaf,
-  truck: Truck,
-  package: Package,
-  handshake: HeartHandshake,
-} as const;
 
 type ItemType = {
   icon: keyof typeof iconMap;

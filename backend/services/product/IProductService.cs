@@ -4,7 +4,7 @@ public interface IProductService
     Task<Product?> GetByIdAsync(int id);
 
     Task<Product> CreateAsync(Product product);
-    Task<Product> UpdateAsync(int id, Product updated);
+   Task<Product> UpdateAsync(int id, UpdateProductDto dto);
     Task DeleteAsync(int id);
     Task<List<Product>> GetFilteredAsync(string? type, bool? isLocal, string? search);
     Task<PaginationResponse<Product>> GetPagedAsync(

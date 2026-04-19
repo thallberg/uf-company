@@ -18,6 +18,8 @@ public class Product
 
     public bool IsLocalOnly { get; set; } // lokalproducerat
 
+      public bool IsPopular { get; set; } 
+
     public int Stock { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -7,6 +7,7 @@ type Props = {
 
 export async function ProductGrid({ limit }: Props) {
   const products = await getProducts("Bundle");
+  console.log("PRODUCTS:", products); // 👈 här
 
   const displayedProducts = limit ? products.slice(0, limit) : products;
 
@@ -21,9 +22,12 @@ export async function ProductGrid({ limit }: Props) {
           price={product.price}
           salePrice={product.salePrice ?? undefined}
           imageUrl={product.imageUrl}
-          badge={product.stock === 0 ? "Slut" : undefined}
-          badgeVariant="destructive"
+          badge={
+  product.isPopular && product.stock > 0 ? "Populär" : undefined
+}
+          badgeVariant={product.isPopular ? "outline" : undefined}
           bundleItems={product.bundleItems}
+          isOutOfStock={product.stock === 0}
         />
       ))}
     </div>

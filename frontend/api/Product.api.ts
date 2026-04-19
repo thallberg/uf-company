@@ -12,6 +12,8 @@ export type Product = {
   stock: number;
   origin?: string; // ✅ denna saknas
   mealsCount?: number;
+  isLocalOnly?: boolean;
+  isPopular: boolean;
 
   bundleItems?: {
     productId: number;
