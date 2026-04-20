@@ -19,6 +19,7 @@ type Props = {
   buttonHref?: string;
   items: ItemType[];
   className?: string;
+  itemsClassName?: string;
 };
 
 export function Items({
@@ -28,6 +29,7 @@ export function Items({
   buttonHref,
   items,
   className,
+  itemsClassName,
 }: Props) {
   return (
     <section className={cn('w-full', className)}>
@@ -45,7 +47,12 @@ export function Items({
         </div>
       )}
 
-      <div className="flex flex-col divide-y gap-4 sm:flex-row sm:divide-none">
+      <div
+        className={cn(
+          "flex flex-col divide-y gap-4 sm:flex-row sm:divide-none",
+          itemsClassName,
+        )}
+      >
         {items.map((item, i) => {
           const Icon = iconMap[item.icon];
 

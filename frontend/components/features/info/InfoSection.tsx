@@ -31,7 +31,7 @@ export function InfoSection({ title, description, items, className }: Props) {
           )}
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 xl:grid-cols-3">
           {items.map((item) => (
             <InfoCard
               key={item.title}

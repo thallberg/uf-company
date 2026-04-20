@@ -15,16 +15,28 @@ export default function Home() {
     <div className="flex flex-col gap-12">
       <Hero className="mt-24" {...MainHero} />
 
-      <Section className="bg-brand-green/20 py-8" {...aboutSectionContent} />
+      <div className="grid lg:grid-cols-2">
+        <Section
+          className="bg-brand-green/20 py-8 flex items-center justify-center"
+          {...aboutSectionContent}
+        />
 
-      <div className="bg-brand-yellow/20 flex justify-center">
-        <Items {...productShowcaseContent} className="py-8 max-w-md mx-auto" />
+        <div className="bg-brand-yellow/20 flex items-center justify-center">
+          <Items {...productShowcaseContent} className="py-8 max-w-md mx-auto" />
+        </div>
       </div>
+
       <ProductGrid limit={4} className="max-w-[95vw] py-8 mx-auto" />
 
-      <InfoSection {...howItWorksContent} className="bg-brand-green/20 py-8" />
+      <div className="grid lg:grid-cols-2">
+        <InfoSection {...howItWorksContent} className="bg-brand-green/20 py-8" />
 
-      <Items items={storeBenefitsContent.items} className="max-w-[80vw] mx-auto" />
+        <Items
+          items={storeBenefitsContent.items}
+          className="mx-auto self-center"
+          itemsClassName="lg:grid lg:grid-cols-2 lg:mx-auto lg:max-w-md lg:gap-1 lg:divide-y-0"
+        />
+      </div>
 
       <ImageOverlayCard
         className="mb-8"
