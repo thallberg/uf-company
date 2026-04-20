@@ -12,9 +12,16 @@ type Props = {
   productId: number;
   name: string;
   price: number;
+  isDisabled?: boolean;
 };
 
-export function ProductCardActions({ badge, productId, name, price }: Props) {
+export function ProductCardActions({
+  badge,
+  productId,
+  name,
+  price,
+  isDisabled,
+}: Props) {
   const [quantity, setQuantity] = useState(1);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
@@ -37,7 +44,7 @@ export function ProductCardActions({ badge, productId, name, price }: Props) {
           setStatus("idle");
         }, 1000);
       }, 500);
-    } catch (err) {
+    } catch {
       setStatus("idle");
     }
   };
@@ -55,7 +62,7 @@ export function ProductCardActions({ badge, productId, name, price }: Props) {
       <Button
         variant="green"
         onClick={handleAdd}
-        disabled={status === "loading" || badge === "Slut"}
+        disabled={status === "loading" || badge === "Slut" || isDisabled}
         className="flex-1 h-8 w-28 rounded-none border-0 shadow-none"
       >
         {status === "loading" && <Spinner className="size-6" />}
