@@ -20,15 +20,15 @@ export async function ApiFetch<T>(
     throw new Error(`API error: ${res.status}`);
   }
 
-  // const text = await res.text();
-
-  // if (!text) {
-  //   return {} as T; 
-  // }
-
-    if (res.status === 204) {
+  if (res.status === 204) {
     return {} as T;
   }
 
-  return res.json();
+  const text = await res.text();
+
+  if (!text) {
+    return {} as T;
+  }
+
+  return JSON.parse(text) as T;
 }
