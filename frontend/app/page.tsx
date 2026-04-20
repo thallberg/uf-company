@@ -1,50 +1,44 @@
-import { HowItWorksSection } from "@/components/features/how-it-works/HowItWorksSection";
+import { InfoSection } from "@/components/features/info/InfoSection";
 import { ImageOverlayCard } from "@/components/features/image-overlay-card/ImageOverlayCard";
 import { Items } from "@/components/features/item/Items";
-import { ItemsShowcase } from "@/components/features/ItemsShowcase/ItemsShowcase";
 import { Section } from "@/components/Section";
 import { ProductGrid } from "@/components/features/product/ProductGrid";
 import { Hero } from "@/components/layout/hero/Hero";
 import { aboutSectionContent } from "@/content/about/About.section.data";
+import { howItWorksContent } from "@/content/how-it-works/HowItWorks.data";
 import { MainHero } from "@/content/hero/Hero.content";
-import { itemContent, productShowcaseContent } from "@/content/item/Item.content";
-import { ItemsShowcaseContent } from "@/content/itemshowcase/ItemShowcase.content";
+import { productShowcaseContent } from "@/content/product-showcase/ProductShowcase.content";
+import { storeBenefitsContent } from "@/content/store-benefits/StoreBenefits.content";
 
 export default function Home() {
   return (
-    <div className="">
-      <div className="mt-24 max-w-[90vw] mx-auto">
-        <Hero {...MainHero} />
+    <div className="flex flex-col gap-12">
+      <Hero className="mt-24" {...MainHero} />
+
+      <Section className="bg-brand-green/20 py-8" {...aboutSectionContent} />
+
+      <div className="bg-brand-yellow/20 flex justify-center">
+        <Items {...productShowcaseContent} className="py-8 max-w-md mx-auto" />
       </div>
-      <div className="bg-brand-green/20 mt-10">
-        <Section {...aboutSectionContent} />
-      </div>
-      <div className="mt-12">
-        <div className="flex items-center justify-center mb-4 gap-2">
-          <ItemsShowcase items={productShowcaseContent.items} {...ItemsShowcaseContent} />
-        </div>
-        <ProductGrid limit={4} />
-      </div>
-      <div className="bg-brand-green/20 mt-10">
-        <HowItWorksSection />
-      </div>
-      <div className="py-10 max-w-[90vw] mx-auto">
-        <Items items={itemContent.items} />
-      </div>
-      <div className="pb-8">
-        <ImageOverlayCard
-          image="/hero/hero-1.jpg"
-          title="Lokala råvaror"
-          description="Från gård till bord"
-          badge="Nyhet"
-          badgePosition="top-4 right-2"
-          contentPosition="bottom-6 left-6"
-          avatar={{
-            fallback: "UF",
-          }}
-          avatarPosition="bottom-6 right-6"
-        />
-      </div>
+      <ProductGrid limit={4} className="max-w-[95vw] py-8 mx-auto" />
+
+      <InfoSection {...howItWorksContent} className="bg-brand-green/20 py-8" />
+
+      <Items items={storeBenefitsContent.items} className="max-w-[80vw] mx-auto" />
+
+      <ImageOverlayCard
+        className="mb-8"
+        image="/hero/hero-1.jpg"
+        title="Lokala råvaror"
+        description="Från gård till bord"
+        badge="Nyhet"
+        badgePosition="top-4 right-2"
+        contentPosition="bottom-6 left-6"
+        avatar={{
+          fallback: "UF",
+        }}
+        avatarPosition="bottom-6 right-6"
+      />
     </div>
   );
 }

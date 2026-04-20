@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export type SectionProps = {
   title: string;
   description: string;
   buttonText?: string;
   buttonHref?: string;
+  className?: string;
 };
 
 export function Section({
@@ -15,9 +17,10 @@ export function Section({
   description,
   buttonText,
   buttonHref,
+  className,
 }: SectionProps) {
   return (
-    <section className="w-full py-10">
+    <section className={cn("w-full", className)}>
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center flex flex-col gap-4">
           <h2 className="text-2xl md:text-3xl font-semibold text-brand-green">

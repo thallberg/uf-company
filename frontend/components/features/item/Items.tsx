@@ -1,22 +1,50 @@
 "use client";
 
-import { iconMap } from "@/content/item/Item.content";
+import Link from "next/link";
+import { iconMap, type IconName } from "@/components/features/item/Item.icons";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { SingleItem } from "./SingleItem";
 
 type ItemType = {
-  icon: keyof typeof iconMap;
+  icon: IconName;
   title: string;
   description: string;
 };
 
 type Props = {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonHref?: string;
   items: ItemType[];
   className?: string;
 };
 
-export function Items({ items, className }: Props) {
+export function Items({
+  title,
+  description,
+  buttonText,
+  buttonHref,
+  items,
+  className,
+}: Props) {
   return (
-    <div className={`container mx-auto px-6 ${className ?? ""}`}>
+    <section className={cn('w-full', className)}>
+      {(title || description) && (
+        <div className="mx-auto mb-6 max-w-2xl text-center">
+          {title && (
+            <h2 className="text-2xl font-semibold text-brand-green">
+              {title}
+            </h2>
+          )}
+
+          {description && (
+            <p className="mt-4 text-muted-foreground">{description}</p>
+          )}
+        </div>
+      )}
+
       <div className="flex flex-col divide-y gap-4 sm:flex-row sm:divide-none">
         {items.map((item, i) => {
           const Icon = iconMap[item.icon];
@@ -34,6 +62,14 @@ export function Items({ items, className }: Props) {
           );
         })}
       </div>
-    </div>
+
+      {buttonText && buttonHref && (
+        <div className="flex justify-center mt-6">
+          <Button asChild>
+            <Link href={buttonHref}>{buttonText}</Link>
+          </Button>
+        </div>
+      )}
+    </section>
   );
 }

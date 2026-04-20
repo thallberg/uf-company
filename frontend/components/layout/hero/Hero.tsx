@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { HeroProps } from "./types/Hero.props";
+import { cn } from "@/lib/utils";
 
-export function Hero({ title, description, images }: HeroProps) {
+export function Hero({ title, description, images, className }: HeroProps) {
   return (
-    <section className="w-full">
+    <section className={cn("w-full", className)}>
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="grid grid-cols-2 auto-rows-fr gap-3 h-50 md:h-62.5 lg:h-87.5">

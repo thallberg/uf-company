@@ -1,18 +1,20 @@
 import { getProducts } from "@/api/Product.api";
+import { cn } from "@/lib/utils";
 import { ProductCard } from "./ProductCard";
 
 type Props = {
   limit?: number;
+  className?: string;
 };
 
-export async function ProductGrid({ limit }: Props) {
+export async function ProductGrid({ limit, className }: Props) {
   const products = await getProducts("Bundle");
   console.log("PRODUCTS:", products); // 👈 här
 
   const displayedProducts = limit ? products.slice(0, limit) : products;
 
   return (
-    <div className="flex flex-wrap gap-4 justify-center">
+    <section className={cn("w-full flex flex-wrap gap-4 justify-center", className)}>
       {displayedProducts.map((product) => (
         <ProductCard
           key={product.id}
@@ -22,14 +24,12 @@ export async function ProductGrid({ limit }: Props) {
           price={product.price}
           salePrice={product.salePrice ?? undefined}
           imageUrl={product.imageUrl}
-          badge={
-  product.isPopular && product.stock > 0 ? "Populär" : undefined
-}
+          badge={product.isPopular && product.stock > 0 ? "Populär" : undefined}
           badgeVariant={product.isPopular ? "outline" : undefined}
           bundleItems={product.bundleItems}
           isOutOfStock={product.stock === 0}
         />
       ))}
-    </div>
+    </section>
   );
 }

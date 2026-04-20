@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 type Props = {
   image: string;
@@ -38,7 +39,7 @@ export function ImageOverlayCard({
   className,
 }: Props) {
   return (
-    <div className={`relative w-full h-[400px] overflow-hidden ${className}`}>
+    <section className={cn("relative w-full h-100 overflow-hidden", className)}>
       
       {/* 🖼 IMAGE */}
       <Image
@@ -86,7 +87,7 @@ export function ImageOverlayCard({
       )}
 
       {/* 🔥 overlay gradient (optional snygghet) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-    </div>
+      <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+    </section>
   );
 }
