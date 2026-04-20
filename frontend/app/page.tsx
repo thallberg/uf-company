@@ -1,8 +1,8 @@
-import { AboutSection } from "@/components/features/about/AboutSection";
 import { HowItWorksSection } from "@/components/features/how-it-works/HowItWorksSection";
 import { ImageOverlayCard } from "@/components/features/image-overlay-card/ImageOverlayCard";
 import { Items } from "@/components/features/item/Items";
 import { ItemsShowcase } from "@/components/features/ItemsShowcase/ItemsShowcase";
+import { Section } from "@/components/Section";
 import { ProductGrid } from "@/components/features/product/ProductGrid";
 import { Hero } from "@/components/layout/hero/Hero";
 import { aboutSectionContent } from "@/content/about/About.section.data";
@@ -17,7 +17,7 @@ export default function Home() {
         <Hero {...MainHero} />
       </div>
       <div className="bg-brand-green/20 mt-10">
-        <AboutSection {...aboutSectionContent} />
+        <Section {...aboutSectionContent} />
       </div>
       <div className="mt-12">
         <div className="flex items-center justify-center mb-4 gap-2">
