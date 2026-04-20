@@ -5,17 +5,16 @@ import { Items } from "@/components/features/item/Items";
 import { ItemsShowcase } from "@/components/features/ItemsShowcase/ItemsShowcase";
 import { ProductGrid } from "@/components/features/product/ProductGrid";
 import { Hero } from "@/components/layout/hero/Hero";
-import { Button } from "@/components/ui/button";
 import { aboutSectionContent } from "@/content/about/About.section.data";
+import { MainHero } from "@/content/hero/Hero.content";
 import { itemContent, productShowcaseContent } from "@/content/item/Item.content";
 import { ItemsShowcaseContent } from "@/content/itemshowcase/ItemShowcase.content";
-import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="">
       <div className="mt-24 max-w-[90vw] mx-auto">
-        <Hero />
+        <Hero {...MainHero} />
       </div>
       <div className="bg-brand-green/20 mt-10">
         <AboutSection {...aboutSectionContent} />
