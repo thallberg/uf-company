@@ -12,34 +12,42 @@ import { storeBenefitsContent } from "@/content/store-benefits/StoreBenefits.con
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col">
       <Hero className="mt-24" {...MainHero} />
 
       <div className="grid lg:grid-cols-2">
         <Section
-          className="bg-brand-green/20 py-8 flex items-center justify-center"
+          className="bg-brand-green/10 py-8 flex items-center justify-center"
           {...aboutSectionContent}
         />
 
-        <div className="bg-brand-yellow/20 flex items-center justify-center">
-          <Items {...productShowcaseContent} className="py-8 max-w-md mx-auto" />
+        <div className="bg-brand-yellow/10 flex items-center justify-center">
+          <Items
+            {...productShowcaseContent}
+            className="py-8 max-w-md mx-auto"
+          />
         </div>
       </div>
 
       <ProductGrid limit={4} className="max-w-[95vw] py-8 mx-auto" />
 
       <div className="grid lg:grid-cols-2">
-        <InfoSection {...howItWorksContent} className="bg-brand-green/20 py-8" />
-
-        <Items
-          items={storeBenefitsContent.items}
-          className="mx-auto self-center"
-          itemsClassName="lg:grid lg:grid-cols-2 lg:mx-auto lg:max-w-md lg:gap-1 lg:divide-y-0"
+        <InfoSection
+          {...howItWorksContent}
+          className="bg-brand-green/20 py-8"
         />
+
+        <div className="bg-brand-yellow/10 flex">
+          <Items
+            items={storeBenefitsContent.items}
+            className="mx-auto self-center"
+            itemsClassName="lg:grid lg:grid-cols-2 lg:mx-auto lg:max-w-md lg:gap-1 lg:divide-y-0"
+          />
+        </div>
       </div>
 
       <ImageOverlayCard
-        className="mb-8"
+        className=""
         image="/hero/hero-1.jpg"
         title="Lokala råvaror"
         description="Från gård till bord"

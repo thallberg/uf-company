@@ -3,6 +3,12 @@
 import Link from "next/link";
 import { iconMap, type IconName } from "@/components/features/item/Item.icons";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { SingleItem } from "./SingleItem";
 
@@ -20,6 +26,12 @@ type Props = {
   items: ItemType[];
   className?: string;
   itemsClassName?: string;
+  cardClassName?: string;
+  headerClassName?: string;
+  titleClassName?: string;
+  descriptionClassName?: string;
+  footerClassName?: string;
+  buttonClassName?: string;
 };
 
 export function Items({
@@ -30,21 +42,63 @@ export function Items({
   items,
   className,
   itemsClassName,
+  cardClassName,
+  headerClassName,
+  titleClassName,
+  descriptionClassName,
+  footerClassName,
+  buttonClassName,
 }: Props) {
   return (
-    <section className={cn('w-full', className)}>
-      {(title || description) && (
-        <div className="mx-auto mb-6 max-w-2xl text-center">
-          {title && (
-            <h2 className="text-2xl font-semibold text-brand-green">
-              {title}
-            </h2>
+    <section className={cn("w-full", className)}>
+      {(title || description || (buttonText && buttonHref)) && (
+        <Card
+          className={cn(
+            "mx-auto max-w-2xl border-0 bg-transparent text-center shadow-none ring-0",
+            cardClassName,
+          )}
+        >
+          {(title || description) && (
+            <CardHeader
+              className={cn("items-center gap-4 px-0", headerClassName)}
+            >
+              {title && (
+                <h2
+                  className={cn(
+                    "text-2xl font-semibold text-brand-green",
+                    titleClassName,
+                  )}
+                >
+                  {title}
+                </h2>
+              )}
+
+              {description && (
+                <CardDescription
+                  className={cn(
+                    "text-primary leading-relaxed",
+                    descriptionClassName,
+                  )}
+                >
+                  {description}
+                </CardDescription>
+              )}
+            </CardHeader>
           )}
 
-          {description && (
-            <p className="mt-4 text-muted-foreground">{description}</p>
+          {buttonText && buttonHref && (
+            <CardFooter
+              className={cn(
+                "justify-center border-0 p-0",
+                footerClassName,
+              )}
+            >
+              <Button asChild className={buttonClassName}>
+                <Link href={buttonHref}>{buttonText}</Link>
+              </Button>
+            </CardFooter>
           )}
-        </div>
+        </Card>
       )}
 
       <div
@@ -70,13 +124,6 @@ export function Items({
         })}
       </div>
 
-      {buttonText && buttonHref && (
-        <div className="flex justify-center mt-6">
-          <Button asChild>
-            <Link href={buttonHref}>{buttonText}</Link>
-          </Button>
-        </div>
-      )}
     </section>
   );
 }

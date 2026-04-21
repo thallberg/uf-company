@@ -30,9 +30,9 @@ export function Hero({ title, description, images, className }: HeroProps) {
           </div>
 
           <div className="flex flex-col gap-4 max-w-[60vw] m-auto h-full justify-center">
-            <h2 className="text-2xl text-brand-green md:text-4xl font-semibold leading-tight">
+            <h1 className="text-2xl text-brand-green md:text-4xl font-semibold leading-tight">
               {title}
-            </h2>
+            </h1>
 
             <p className="text-primary text-base leading-relaxed">
               {description}

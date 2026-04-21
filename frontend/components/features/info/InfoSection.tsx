@@ -20,7 +20,7 @@ type Props = {
 export function InfoSection({ title, description, items, className }: Props) {
   return (
     <section className={cn(className)}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:text-center">
         <div className="text-center">
           <h2 className="text-2xl text-brand-green md:text-3xl font-semibold mb-2">
             {title}
