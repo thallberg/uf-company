@@ -13,7 +13,7 @@ export function Hero({ title, description, images, className }: HeroProps) {
             {images.map((image, index) => (
               <div
                 key={`${image}-${index}`}
-                className={`relative rounded-xl overflow-hidden ${
+                className={`relative overflow-hidden ${
                   index === 0 && images.length > 2 ? "row-span-2" : ""
                 }`}
               >
