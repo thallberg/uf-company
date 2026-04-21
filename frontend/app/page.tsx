@@ -12,7 +12,7 @@ import { storeBenefitsContent } from "@/content/store-benefits/StoreBenefits.con
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="">
       <Hero {...MainHero} />
 
       <div className="grid lg:grid-cols-2">
