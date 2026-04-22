@@ -5,14 +5,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { useForm } from "@tanstack/react-form";
-
-const fields = [
-  { name: "fullName", label: "Namn", placeholder: "Fullständigt namn" },
-  { name: "address", label: "Adress", placeholder: "Adress" },
-  { name: "city", label: "Stad", placeholder: "Stad" },
-  { name: "postalCode", label: "Postnummer", placeholder: "Postnummer" },
-  { name: "phoneNumber", label: "Telefon", placeholder: "Telefonnummer" },
-] as const;
+import { fieldsLogin } from "../../../content/fields-content/Fields.content";
 
 export function AccountDetails() {
   const [saved, setSaved] = useState(false);
@@ -78,7 +71,7 @@ export function AccountDetails() {
         }}
         className="space-y-4"
       >
-        {fields.map((f) => (
+        {fieldsLogin.map((f) => (
           <form.Field key={f.name} name={f.name}>
             {(field) => (
               <FormField

@@ -1,73 +1,14 @@
 "use client";
 
-import { JSX, useState } from "react";
-import { useForm } from "@tanstack/react-form";
-import * as z from "zod";
 import { CircleCheckIcon, XIcon } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { CardContent, CardFooter } from "@/components/ui/card";
-
-import { registerAction } from "@/api/Auth.api";
-
-const registerSchema = z.object({
-  email: z.string().trim().email(),
-  password: z.string().min(8),
-  fullName: z.string().min(1),
-  address: z.string().min(1),
-  city: z.string().min(1),
-  postalCode: z.string().min(1),
-  phoneNumber: z.string().min(1),
-});
-
-const fieldNames = [
-  "fullName",
-  "address",
-  "city",
-  "postalCode",
-  "phoneNumber",
-] as const;
+import { useLoginForm } from "@/hooks/use.loginForm";
+import { fieldRegister } from "@/content/fields-content/Fields.content";
 
 export function RegisterFormClient({ content }: any) {
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
-
-  const form = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-      fullName: "",
-      address: "",
-      city: "",
-      postalCode: "",
-      phoneNumber: "",
-    },
-    validators: {
-      onSubmit: registerSchema,
-    },
-onSubmit: async ({ value }) => {
-  try {
-    console.log("SENDING:", value)
-
-    const res = await registerAction(value)
-
-    console.log("RESPONSE:", res)
-
-    localStorage.setItem("token", res.token)
-    window.dispatchEvent(new Event("auth-change"))
-
-    setStatus("success")
-    setMessage("Kontot skapades.")
-    form.reset()
-  } catch (err: any) {
-    console.error("ERROR:", err)
-
-    setStatus("error")
-    setMessage(err?.message || "Serverfel")
-  }
-}
-  });
+ const { form, status, message } = useLoginForm();
 
   return (
     <>
@@ -76,8 +17,6 @@ onSubmit: async ({ value }) => {
           id="register-form"
           onSubmit={(e) => {
             e.preventDefault();
-            setStatus("idle");
-            setMessage("");
             form.handleSubmit();
           }}
           className="space-y-4"
@@ -102,7 +41,7 @@ onSubmit: async ({ value }) => {
             )}
           </form.Field>
 
-          {fieldNames.map((name) => (
+          {fieldRegister.map((name) => (
             <form.Field key={name} name={name}>
               {(field) => (
                 <FormField field={field} placeholder={content.fields[name]} />

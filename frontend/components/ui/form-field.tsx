@@ -10,7 +10,7 @@ import {
 
 type Props = {
   field: any;
-  label: string;
+  label?: string;
   placeholder?: string;
   type?: string;
 };

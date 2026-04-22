@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Filters } from "@/components/ui/Filters";
-import { useProducts } from "@/hooks/use-products";
-import { useSelection } from "@/hooks/use-selections";
+import { useProducts } from "@/hooks/use.products";
+import { useSelection } from "@/hooks/use.selections";
 import { AdminListHeader } from "../AdminListHeader";
 import { SelectionBar } from "../SelectionBar";
 import { DeleteDialog } from "../DeleteDialog";

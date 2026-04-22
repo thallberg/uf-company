@@ -1,7 +1,7 @@
 import { InfoSection } from "@/components/features/info/InfoSection";
 import { ImageOverlayCard } from "@/components/features/image-overlay-card/ImageOverlayCard";
 import { Items } from "@/components/features/item/Items";
-import { Section } from "@/components/Section";
+import { Section } from "@/components/features/section/Section";
 import { ProductGrid } from "@/components/features/product/ProductGrid";
 import { Hero } from "@/components/layout/hero/Hero";
 import { aboutSectionContent } from "@/content/about/About.section.data";
