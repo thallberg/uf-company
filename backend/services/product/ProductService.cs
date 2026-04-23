@@ -41,6 +41,9 @@ public class ProductService : IProductService
         if (dto.LongDescription != null)
             existing.LongDescription = dto.LongDescription;
 
+            if (dto.ImageUrl != null)
+    existing.ImageUrl = dto.ImageUrl;
+
         if (dto.Origin != null)
             existing.Origin = dto.Origin;
 

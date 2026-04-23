@@ -4,6 +4,8 @@ public class UpdateProductDto
     public string? Description { get; set; }
     public string? LongDescription { get; set; }
     public string? Origin { get; set; }
+
+    public string? ImageUrl { get; set; }
     public int? MealsCount { get; set; }
     public decimal? Price { get; set; }
     public decimal? SalePrice { get; set; }

@@ -6,6 +6,8 @@ public class Product
     public string Description { get; set; } = string.Empty;
     public string? LongDescription { get; set; }
 
+    public string? ImageUrl { get; set; }
+
     public string? Origin { get; set; }
 
     public int MealsCount { get; set; }

@@ -41,7 +41,7 @@ export default function Home() {
           <Items
             items={storeBenefitsContent.items}
             className="mx-auto self-center"
-            itemsClassName="lg:grid lg:grid-cols-2 lg:mx-auto lg:max-w-md lg:gap-1 lg:divide-y-0"
+            itemsClassName="py-14 lg:py-0 lg:grid lg:grid-cols-2 lg:mx-auto lg:max-w-md lg:gap-1 lg:divide-y-0"
           />
         </div>
       </div>
