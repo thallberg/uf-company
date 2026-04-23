@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-green">
+    <footer className="bg-brand-navbar">
       <div className="py-12 flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-start sm:mx-auto sm:max-w-[90vw] md:max-w-[80vw] lg:max-w-225">
         {/* 🔵 BRAND */}
         <div className="flex flex-col items-center">

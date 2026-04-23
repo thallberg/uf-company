@@ -8,7 +8,7 @@ import { navLinks } from "@/links/Nav.links";
 
 export function Navbar() {
   return (
-    <nav className="border-b bg-brand-green h-14 sticky top-0 z-50">
+    <nav className="border-b bg-brand-navbar h-14 sticky top-0 z-50">
       <div className="container mx-auto text-brand-white flex h-14 items-center justify-between px-4">
         {/* Logo */}
         <Button asChild className="text-brand-white" variant="link">

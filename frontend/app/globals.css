@@ -61,6 +61,8 @@
 
   --color-brand-white: var(--brand-white);
 
+  --color-brand-navbar: var(--brand-navbar);
+
   /* Alert colors */
   --color-brand-blue-alert: var(--brand-blue-alert);
   --color-brand-green-alert: var(--brand-green-alert);
@@ -113,6 +115,8 @@
   --brand-orange-foreground: oklch(0.98 0 0);
 
   --brand-white: oklch(0.97 0 0);
+
+  --brand-navbar: oklch(0.72 0.2 140);
 
   /* Alert colors */
   --brand-blue-alert: oklch(0.65 0.12 240);
@@ -167,6 +171,8 @@
   /* Alert colors */
   --brand-blue-alert: oklch(0.75 0.1 240);
   --brand-green-alert: oklch(0.8 0.12 140);
+
+  --brand-navbar: oklch(0.68 0.18 140);
 }
 
 @layer base {
