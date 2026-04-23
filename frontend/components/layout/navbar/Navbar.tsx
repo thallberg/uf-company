@@ -11,7 +11,7 @@ export function Navbar() {
     <nav className="border-b bg-brand-navbar h-14 sticky top-0 z-50">
       <div className="container mx-auto text-brand-white flex h-14 items-center justify-between px-4">
         {/* Logo */}
-        <Button asChild className="text-brand-white" variant="link">
+        <Button asChild className="text-brand-white hover:text-brand-yellow underline-none" variant="link">
           <Link href="/" className="font-bold text-lg">
             UF Store
           </Link>
@@ -23,7 +23,7 @@ export function Navbar() {
             <Button
               key={link.href}
               asChild
-              className="text-brand-white"
+              className="text-brand-white hover:text-brand-yellow"
               variant="link"
             >
               <Link href={link.href} aria-label={link.label}>

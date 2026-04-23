@@ -4,6 +4,7 @@ import Link from "next/link";
 import { footerContent } from "@/content/footer/Footer.content";
 import { footerLinks, socialLinks } from "./Footer.links";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -28,14 +29,12 @@ export function Footer() {
 
           <div className="flex flex-col">
             {footerLinks.map((link) => (
-              <Link
-                key={link.href.toString()}
-                href={link.href}
-                className="text-sm text-brand-white/80 mt-1"
-              >
-                {link.label}
-              </Link>
-            ))}
+              <Button variant="link" className="text-brand-white hover:text-brand-yellow underline-none" asChild key={link.href.toString()}>
+                <Link href={link.href}>
+                  {link.label}
+                </Link>
+              </Button>
+            ))} 
           </div>
         </div>
 
