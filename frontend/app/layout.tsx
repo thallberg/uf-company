@@ -5,8 +5,15 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner"
 import { Navbar } from "@/components/layout/navbar/Navbar";
 import { Footer } from "@/components/layout/footer/Footer";
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,
+  SidebarInset,
+} from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/layout/app-sidebar/AppSidebar.tsx";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,17 +22,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-  <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className="min-h-full flex flex-col">
-          <Navbar />
-        {children}
+
+        <SidebarProvider>
+
+          {/* SIDEBAR */}
+          <Sidebar collapsible='offcanvas'>
+           <AppSidebar />
+          </Sidebar>
+
+          {/* MAIN CONTENT */}
+          <SidebarInset>
+            <Navbar />
+            {children}
+            <Footer />
+          </SidebarInset>
+
+        </SidebarProvider>
+
         <Toaster />
-        <Footer/>
       </body>
     </html>
-  );
+  )
 }
