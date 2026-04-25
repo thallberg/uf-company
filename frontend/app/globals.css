@@ -60,6 +60,7 @@
   --color-brand-orange-foreground: var(--brand-orange-foreground);
 
   --color-brand-white: var(--brand-white);
+  --color-brand-black: var(--brand-black);
 
   --color-brand-navbar: var(--brand-navbar);
 
@@ -115,6 +116,7 @@
   --brand-orange-foreground: oklch(0.98 0 0);
 
   --brand-white: oklch(0.97 0 0);
+  --brand-black: oklch(0.205 0 0);
 
   --brand-navbar: oklch(0.72 0.2 140);
 
