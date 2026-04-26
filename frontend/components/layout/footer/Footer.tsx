@@ -57,7 +57,7 @@ export function Footer() {
                 key={social.href}
                 href={social.href}
                 target="_blank"
-                className="p-2 rounded-md bg-white/10 hover:bg-brand-yellow/40 transition"
+                className="p-2 rounded-md bg-white/20 hover:bg-brand-yellow/40 transition"
               >
                 <social.icon className="w-5 h-5 text-brand-white" />
               </Link>
