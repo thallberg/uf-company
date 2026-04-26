@@ -8,11 +8,11 @@ export function Hero({ title, description, images, className }: HeroProps) {
   return (
     <section className={cn("w-full", className)}>
       <div className="grid md:grid-cols-2">
-        <div className="grid grid-cols-2 auto-rows-fr gap-3 h-50 md:h-75 lg:h-100">
+        <div className="grid grid-cols-2 auto-rows-fr gap-3 min-h-[40vh] md:min-h-[65vh] lg:min-h-[60vh]">
           {images.map((image, index) => (
             <div
               key={`${image}-${index}`}
-              className={`relative overflow-hidden ${index === 0 && images.length > 2 ? "row-span-2" : ""
+              className={`relative overflow-hidden ${index === 0 && images.length > 2 ? "col-span-2" : ""
                 }`}
             >
               <Image

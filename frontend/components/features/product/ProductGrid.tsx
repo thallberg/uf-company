@@ -25,7 +25,7 @@ export async function ProductGrid({ limit, className }: Props) {
           salePrice={product.salePrice ?? undefined}
           imageUrl={product.imageUrl}
           badge={product.isPopular && product.stock > 0 ? "Populär" : undefined}
-          badgeVariant={product.isPopular ? "outline" : undefined}
+          badgeVariant={product.isPopular ? "default" : undefined}
           bundleItems={product.bundleItems}
           isOutOfStock={product.stock === 0}
         />

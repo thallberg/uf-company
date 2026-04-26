@@ -32,7 +32,7 @@ export default function RootLayout({
         <SidebarProvider>
 
           {/* SIDEBAR */}
-          <Sidebar collapsible='offcanvas'>
+          <Sidebar>
            <AppSidebar />
           </Sidebar>
 
