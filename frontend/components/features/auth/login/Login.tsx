@@ -61,6 +61,7 @@ export function LoginFormClient({ content }: any) {
 
         {/* BOTTOM */}
         <Button
+        aria-label="Logga in"
           variant="green"
           type="submit"
           form="login-form"

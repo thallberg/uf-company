@@ -77,7 +77,7 @@ export function Section({
               )}
             >
               <Button asChild className={cn("py-4 px-3", buttonClassName)}>
-                <Link href={buttonHref}>{buttonText}</Link>
+                <Link aria-label="About us" href={buttonHref}>{buttonText}</Link>
               </Button>
             </CardFooter>
           )}

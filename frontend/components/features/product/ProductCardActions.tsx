@@ -51,7 +51,11 @@ export function ProductCardActions({
 
   return (
     <div className="flex w-full border rounded-md overflow-hidden">
+      <label htmlFor={`quantity-${productId}`} className="sr-only">
+        Antal {name}
+      </label>
       <Input
+        id={`quantity-${productId}`}
         type="number"
         min={1}
         value={quantity}
@@ -60,6 +64,7 @@ export function ProductCardActions({
       />
 
       <Button
+        aria-label={`Lägg ${quantity} st ${name} i varukorgen`}
         variant="green"
         onClick={handleAdd}
         disabled={status === "loading" || badge === "Slut" || isDisabled}

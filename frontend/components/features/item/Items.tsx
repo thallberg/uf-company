@@ -94,7 +94,7 @@ export function Items({
               )}
             >
               <Button asChild className={buttonClassName}>
-                <Link href={buttonHref}>{buttonText}</Link>
+                <Link aria-label="Gå till sidan för alla produkter" href={buttonHref}>{buttonText}</Link>
               </Button>
             </CardFooter>
           )}

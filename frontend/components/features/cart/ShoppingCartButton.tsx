@@ -39,12 +39,13 @@ export function ShoppingCartButton() {
       {/* 🛒 ICON */}
       <HoverCardTrigger asChild>
         <Link
+        aria-label="Kundkorg"
           href="/cart"
-          className="relative inline-flex"
+          className="relative inline-flex p-2 rounded-md bg-white/20 hover:bg-brand-yellow/40 transition"
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
         >
-          <ShoppingCart className="w-6 h-6" />
+          <ShoppingCart className="w-5! h-5! text-brand-white" />
 
           {count > 0 && (
             <span className="absolute -top-2 -right-2 bg-brand-orange text-brand-white text-xs px-1.5 rounded-full">

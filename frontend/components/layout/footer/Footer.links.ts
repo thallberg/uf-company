@@ -7,7 +7,7 @@ export type FooterLink = {
 };
 
 export const footerLinks: FooterLink[] = [
-  { label: "Shop", href: "/shop" },
+  { label: "produkter", href: "/products" },
   { label: "Om oss", href: "/about" },
 ];
 

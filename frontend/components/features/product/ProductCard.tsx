@@ -101,7 +101,7 @@ export function ProductCard(props: Props) {
 
             {/* 🔵 BOTTOM */}
             <div className="mt-auto pt-2">
-              <Link href={`/product/${productId}`}>
+              <Link aria-label={`Läs mer om ${productId}`} href={`/product/${productId}`}>
                 <Button
                   variant="link"
                   className="p-0 h-auto text-muted-foreground font-extralight"

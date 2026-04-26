@@ -37,12 +37,13 @@ export function AuthBenefitsCard({
 
         {/* BUTTON */}
         {mode === "login" ? (
-          <Button variant="outline" onClick={onRegisterClick} className="w-full">
+          <Button aria-label="Visa registrera användare" variant="outline" onClick={onRegisterClick} className="w-full">
             Registrera
           </Button>
         ) : (
           <div className="flex justify-center">
             <Button
+            aria-label="Gå tillbaka"
               variant="ghost"
               onClick={onBackClick}
               className="h-16 w-16 hover:bg-opacity rounded-full"

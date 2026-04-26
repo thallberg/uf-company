@@ -13,14 +13,14 @@ export function Navbar() {
         {/* LEFT */}
         <div className="flex items-center gap-2">
           {/* 🔥 sidebar toggle */}
-          <SidebarTrigger className="text-brand-white hover:text-brand-yellow" />
+          <SidebarTrigger aria-label="Öppna sidebar" className="text-brand-white hover:text-brand-yellow" />
 
           <Button
             asChild
             variant="link"
             className="text-brand-white hover:text-brand-yellow"
           >
-            <Link aria-label="Home" href="/" className="p-2 rounded-md bg-white/20 hover:bg-brand-yellow-solid transition">
+            <Link aria-label="Home" href="/" className="p-2 rounded-md bg-white/20 hover:bg-brand-yellow/40 transition">
               <House className="w-5! h-5! text-brand-white"  />
             </Link>
           </Button>
@@ -28,7 +28,7 @@ export function Navbar() {
 
         {/* DESKTOP NAV */}
         <div className="md:flex items-center gap-4">
-          <ShoppingCartButton />
+          <ShoppingCartButton  />
         </div>
       </div>
     </nav>

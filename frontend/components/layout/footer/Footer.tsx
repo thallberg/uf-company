@@ -27,15 +27,20 @@ export function Footer() {
             {footerContent.linksTitle}
           </h3>
 
-          <div className="flex flex-col">
-            {footerLinks.map((link) => (
-              <Button variant="link" className="text-brand-white hover:text-brand-yellow underline-none" asChild key={link.href.toString()}>
-                <Link href={link.href}>
-                  {link.label}
-                </Link>
-              </Button>
-            ))} 
-          </div>
+          <nav aria-label="Footer navigation">
+            <div className="flex flex-col">
+              {footerLinks.map((link) => (
+                <Button
+                  variant="link"
+                  className="text-brand-white hover:text-brand-yellow underline-none"
+                  asChild
+                  key={link.href.toString()}
+                >
+                  <Link aria-label={link.label} href={link.href}>{link.label}</Link>
+                </Button>
+              ))}
+            </div>
+          </nav>
         </div>
 
         {/* 🟣 CONTACT + SOCIAL */}
@@ -44,10 +49,6 @@ export function Footer() {
             <h3 className="text-lg font-semibold text-brand-white">
               {footerContent.contactTitle}
             </h3>
-
-            <p className="text-sm text-brand-white/80 mt-1">
-              {footerContent.contactEmail}
-            </p>
           </div>
 
           {/* 🔥 SOCIALS */}
@@ -57,6 +58,7 @@ export function Footer() {
                 key={social.href}
                 href={social.href}
                 target="_blank"
+                aria-label={`Besök oss på ${social.label}`}
                 className="p-2 rounded-md bg-white/20 hover:bg-brand-yellow/40 transition"
               >
                 <social.icon className="w-5 h-5 text-brand-white" />

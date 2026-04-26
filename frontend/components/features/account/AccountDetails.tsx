@@ -83,7 +83,7 @@ export function AccountDetails() {
           </form.Field>
         ))}
 
-        <Button type="submit" className="w-full">
+        <Button aria-label="Spara dina uppgifter" type="submit" className="w-full">
           Spara uppgifter
         </Button>
 

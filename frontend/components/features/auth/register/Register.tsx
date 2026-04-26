@@ -67,7 +67,7 @@ export function RegisterFormClient({ content }: any) {
           </p>
         )}
 
-        <Button type="submit" form="register-form" className="w-full">
+        <Button aria-label="Registrera användare" type="submit" form="register-form" className="w-full">
           {content.submit}
         </Button>
       </CardFooter>
