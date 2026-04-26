@@ -44,7 +44,7 @@ export function ShoppingCartButton() {
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
         >
-          <ShoppingCart className="!w-6 !h-6" />
+          <ShoppingCart className="w-6 h-6" />
 
           {count > 0 && (
             <span className="absolute -top-2 -right-2 bg-brand-orange text-brand-white text-xs px-1.5 rounded-full">

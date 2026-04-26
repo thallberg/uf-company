@@ -89,7 +89,7 @@ export function Items({
           {buttonText && buttonHref && (
             <CardFooter
               className={cn(
-                "justify-center border-0 p-0",
+                "justify-center border-0 p-0 bg-transparent",
                 footerClassName,
               )}
             >
