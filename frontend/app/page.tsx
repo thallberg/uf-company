@@ -17,11 +17,11 @@ export default function Home() {
 
       <div className="grid lg:grid-cols-2">
         <Section
-          className="bg-brand-green/10 py-8 flex items-center justify-center"
+          className="bg-brand-yellow-solid py-8 flex items-center justify-center"
           {...aboutSectionContent}
         />
 
-        <div className="bg-brand-yellow/10 flex items-center justify-center">
+        <div className="bg-brand-green-solid flex items-center justify-center">
           <Items
             {...productShowcaseContent}
             className="py-8 max-w-md mx-auto"
@@ -34,10 +34,10 @@ export default function Home() {
       <div className="grid lg:grid-cols-2">
         <InfoSection
           {...howItWorksContent}
-          className="bg-brand-green/20 py-8"
+          className="bg-brand-yellow-solid py-8"
         />
 
-        <div className="bg-brand-yellow/10 flex">
+        <div className="bg-brand-green-solid flex">
           <Items
             items={storeBenefitsContent.items}
             className="mx-auto self-center"

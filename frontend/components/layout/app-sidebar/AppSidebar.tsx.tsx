@@ -17,11 +17,11 @@ export function AppSidebar() {
         UF Store
       </SidebarHeader>
 
-      <SidebarContent className="bg-brand-yellow/10 ">
+      <SidebarContent className="bg-brand-green-solid">
         <SidebarMenu className="py-4 gap-2 px-2">
           {navLinks.map((link) => (
             <SidebarMenuItem key={link.href} className="">
-              <SidebarMenuButton asChild className="hover:bg-brand-yellow/20">
+              <SidebarMenuButton asChild className="hover:bg-brand-yellow-solid">
                 <Link
                   href={link.href}
                   className="flex items-center gap-3 p-2"

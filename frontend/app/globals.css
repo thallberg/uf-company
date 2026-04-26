@@ -64,6 +64,9 @@
 
   --color-brand-navbar: var(--brand-navbar);
 
+  --color-brand-green-solid: var(--brand-green-solid);
+  --color-brand-yellow-solid: var(--brand-yellow-solid);
+
   /* Alert colors */
   --color-brand-blue-alert: var(--brand-blue-alert);
   --color-brand-green-alert: var(--brand-green-alert);
@@ -117,6 +120,9 @@
 
   --brand-white: oklch(0.97 0 0);
   --brand-black: oklch(0.205 0 0);
+
+  --brand-green-solid: oklch(95% 0.01625 142.858);
+  --brand-yellow-solid: oklch(95% 0.03196 97.328);
 
   --brand-navbar: oklch(0.72 0.2 140);
 
